@@ -7,7 +7,7 @@ module.exports = new WebpackBuilder()
   .setExtras({
     devServer: {
       proxy: {
-        '/api': `http://localhost:6799`,
+        '/api': `http://localhost:6800`,
       },
     },
   })

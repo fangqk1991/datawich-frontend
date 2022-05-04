@@ -1,6 +1,8 @@
 import { AdminApp } from '@fangcha/vue/app-admin'
 import { I18nCode, VisitorInfo } from '@fangcha/tools'
 import '@fangcha/vue/fangcha/fc-styles.scss'
+import DataAppListView from './views/data-app/DataAppListView'
+import DataDisplayView from './views/data-app/DataDisplayView'
 
 const app = new AdminApp({
   appName: 'Datawich 🍰',
@@ -32,7 +34,19 @@ const app = new AdminApp({
       ],
     },
   ],
-  routes: [],
+  routes: [
+    {
+      path: '/v2/data-app',
+      component: DataAppListView,
+      name: 'DataAppListView',
+    },
+    {
+      path: '/v2/data-app/:modelKey',
+      component: DataDisplayView,
+      name: 'DataDisplayView',
+      props: true,
+    },
+  ],
   reloadUserInfo: async (): Promise<VisitorInfo> => {
     return {
       iamId: 0,
@@ -46,4 +60,5 @@ const app = new AdminApp({
     }
   },
 })
+window._datawichApp = app
 app.launch()

@@ -7,25 +7,32 @@ const app = new AdminApp({
   useRemoteLocale: false,
   sidebarNodes: [
     {
-      titleEn: 'Menu 1',
-      titleZh: 'Menu 1',
-      icon: 'el-icon-user',
+      uid: 'data-apps',
+      titleEn: '数据应用',
+      titleZh: '数据应用',
+      icon: 'el-icon-data-analysis',
       links: [
         {
-          titleEn: 'Sub Menu 1',
-          titleZh: 'Sub Menu 1',
-          path: '/v1/page-1',
+          titleEn: '所有应用',
+          titleZh: '所有应用',
+          path: '/v2/data-app',
+        },
+      ],
+    },
+    {
+      titleEn: '模型管理',
+      titleZh: '模型管理',
+      icon: 'el-icon-lock',
+      links: [
+        {
+          titleEn: '模型管理',
+          titleZh: '模型管理',
+          path: '/v2/data-model',
         },
       ],
     },
   ],
-  routes: [
-    // {
-    //   path: '/v1/page-red',
-    //   require: 'Red',
-    //   component: Red_View,
-    // },
-  ],
+  routes: [],
   reloadUserInfo: async (): Promise<VisitorInfo> => {
     return {
       iamId: 0,

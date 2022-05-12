@@ -8,13 +8,11 @@ import {
   getCheckedTagsForField,
   ModelFieldModel,
 } from '@fangcha/datawich-service/lib/common/models'
-import { DataColumnExtension } from '../core/DataColumnExtension'
+import { DataColumnExtension, FieldPluginCenter, PluginDataColumn } from '../core'
 import { GeneralDataManager } from '../GeneralDataManager'
 import { TagsContainer } from './TagsContainer'
 import { TemplateHelper } from '@fangcha/tools'
 import { MultiEnumContainer } from './MultiEnumContainer'
-import { FieldPluginCenter } from '../core/FieldPluginCenter'
-import { PluginDataColumn } from '../core/PluginDataColumn'
 
 @Component({
   components: {
@@ -31,6 +29,8 @@ import { PluginDataColumn } from '../core/PluginDataColumn'
       :column-view="fieldPlugin.columnView"
       :field="field"
       :super-field="superField"
+      :filter-options="filterOptions"
+      @on-filter-change="onFilterUpdate"
     />
     <el-table-column v-else-if="field.fieldType === FieldType.Enum || field.fieldType === FieldType.TextEnum" :prop="filterKey">
       <template v-slot:header>

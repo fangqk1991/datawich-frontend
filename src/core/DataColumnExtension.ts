@@ -6,7 +6,6 @@ import {
   FieldLinkModel,
   ModelFieldModel,
 } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataManager } from '../GeneralDataManager'
 import { TemplateHelper } from '@fangcha/tools'
 
 @Component({
@@ -50,12 +49,14 @@ export class DataColumnExtension extends ViewController {
   }
 
   async showInfo(action: FieldActionModel) {
-    const { modelName, infos } = await GeneralDataManager.do.showDataAppRecordActionPerformerInfo(
-      this.data.data_id,
-      this.field,
-      action
-    )
-    InformationDialog.show(`关联信息 -> ${modelName}`, infos)
+    import('../GeneralDataManager').then(async ({ GeneralDataManager }) => {
+      const { modelName, infos } = await GeneralDataManager.do.showDataAppRecordActionPerformerInfo(
+        this.data.data_id,
+        this.field,
+        action
+      )
+      InformationDialog.show(`关联信息 -> ${modelName}`, infos)
+    })
   }
 
   async showReferenceInfos(link: FieldLinkModel) {

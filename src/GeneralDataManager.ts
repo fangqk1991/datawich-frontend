@@ -7,6 +7,9 @@ import {
   FieldTypeDescriptor,
   ModelTypeDescriptor,
 } from '@fangcha/datawich-service/lib/common/models'
+import { _DatawichAttachmentOptions, AttachmentOptions } from './plugins/attachment/AttachmentOptions'
+import { FieldPluginCenter } from './core'
+import { AttachmentFieldPlugin } from './plugins/attachment/AttachmentFieldPlugin'
 
 Vue.filter('describe_model_scope_type', function (val: any) {
   return DisplayScopeDescriptor.describe(val)
@@ -49,6 +52,12 @@ class _GeneralDataManager {
 
   public setProtocol(protocol: GeneralDataProtocol) {
     this.do = protocol
+  }
+
+  public useAttachmentFieldPlugin(options: AttachmentOptions) {
+    Object.assign(_DatawichAttachmentOptions, options)
+    FieldPluginCenter.addPlugin(new AttachmentFieldPlugin())
+    return this
   }
 }
 

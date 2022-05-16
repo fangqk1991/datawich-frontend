@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-frontend",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",

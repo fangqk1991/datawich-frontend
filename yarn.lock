@@ -957,10 +957,10 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/datawich-service@^0.3.0":
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.3.0.tgz#948bfe6e8c0f26d81e112885ace35ed0e148962a"
-  integrity sha512-JVRWjo2WuGOMfSaelcXCFgiLAd3lgqumrFTQQaPzk7KThHFxwTIBKhut8gGFT4dlolu5kDWbbIrHlTsgEALi+w==
+"@fangcha/datawich-service@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.3.1.tgz#ade2902180f5246f6facfd149fc1ba99012507c2"
+  integrity sha512-XBIAaL4xtV9Mv+90tTf3SLkoWuZZmvfgdpBhMr5D0WSwgs1x+spiWPcQM6SBb3jNpMGfjhWU6CeVWlX5JnYlyQ==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
     "@fangcha/general-group" "^0.1.1"
@@ -3661,6 +3661,11 @@ fc-model@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/fc-model/-/fc-model-0.4.2.tgz#12751aea0b645208756b7b67923dc8c30adedc48"
   integrity sha512-Uiv0DcQeKcJsQ4f24toMDgn5RP/cIIvUq9+YR3EBZS3DjVOmNHzuF0SXDhgqZoG2eOrLEmguoAO/Ri7rFVcl5g==
+
+fc-queue@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/fc-queue/-/fc-queue-0.4.0.tgz#581923297a0ea848d41ca1278002c8680de439df"
+  integrity sha512-PJlpsjAOCg0RUbekTuJZlyBArs1/hMQnan0LeGLP57+wYXClZ0WJ7J7XeCaCXlkO9NZI05pu+4Xl58DUsyQKeg==
 
 fc-sql@^0.28.0:
   version "0.28.0"

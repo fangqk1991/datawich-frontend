@@ -13,9 +13,10 @@
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
   "dependencies": {
-    "@fangcha/datawich-service": "^0.3.0",
+    "@fangcha/datawich-service": "^0.3.1",
     "@fangcha/tools": "^1.18.0",
-    "@fangcha/vue": "^0.23.5"
+    "@fangcha/vue": "^0.23.5",
+    "fc-queue": "^0.4.0"
   },
   "devDependencies": {
     "@fangcha/eslint": "^0.2.0",

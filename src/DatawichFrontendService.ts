@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { ActionEventDescriptor, DatawichSystemInfo, TinyModelInfo } from '@fangcha/datawich-service/lib/common/models'
-import { MyAxios } from '@fangcha/vue/basic'
+import { MyAxios, FrontendPluginProtocol } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { NotificationCenter } from 'notification-center-js'
 import { SdkDatawichApis } from '@fangcha/datawich-service/lib/common/sdk-api'
@@ -26,8 +26,10 @@ interface Params {
   plugins?: FieldPluginProtocol[]
 }
 
-class _DatawichFrontendService {
+class _DatawichFrontendService implements FrontendPluginProtocol {
   params!: Params
+
+  routes = []
 
   systemInfo: DatawichSystemInfo = {
     modelStructureBaseURL: '',
@@ -41,7 +43,6 @@ class _DatawichFrontendService {
       FieldPluginCenter.addPlugin(...params.plugins)
     }
     this.params = params
-    this.reloadSystemInfo()
     return this
   }
 
@@ -49,6 +50,10 @@ class _DatawichFrontendService {
     const request = MyAxios(SdkDatawichApis.SystemInfoGet)
     this.systemInfo = await request.quickSend()
     NotificationCenter.defaultCenter().postNotification('__onDatawichSystemInfoChanged')
+  }
+
+  public onAppWillLoad() {
+    this.reloadSystemInfo()
   }
 }
 

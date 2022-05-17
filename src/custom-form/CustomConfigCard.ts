@@ -4,6 +4,7 @@ import { FieldType, GeneralDataFormatter, ModelFullMetadata } from '@fangcha/dat
 import { MultiEnumContainer, TagsContainer } from '../data-app'
 import { MyAxios } from '@fangcha/vue/basic'
 import { SdkDatawichApis2 } from '@fangcha/datawich-service/lib/common/sdk-api'
+import { OssFileInfo } from '@fangcha/oss-service/lib/common/models'
 
 @Component({
   components: {
@@ -25,7 +26,7 @@ import { SdkDatawichApis2 } from '@fangcha/datawich-service/lib/common/sdk-api'
           :value="configData[field.dataKey]"
         />
         <template v-else-if="field.fieldType === FieldType.Attachment">
-          <a v-if="attachmentUrlMap[configData[field.dataKey]]" :href="attachmentUrlMap[configData[field.dataKey]]" target="_blank">点击查看</a>
+          <a v-if="fieldOssFileInfoMap[field.dataKey] && fieldOssFileInfoMap[field.dataKey].url" :href="fieldOssFileInfoMap[field.dataKey].url" target="_blank">点击查看</a>
         </template>
         <b v-else-if="field.fieldType === FieldType.Enum || field.fieldType === FieldType.TextEnum" class="text-danger">
           {{ field.value2LabelMap[configData[field.dataKey]] }}
@@ -45,11 +46,7 @@ export class CustomConfigCard extends ViewController {
     super()
   }
 
-  attachmentUrlMap: { [p: string]: string } = {}
-
-  // attachmentEntity(data: any) {
-  //   return data[attachmentEntityKey(this.field)] as OssFileInfo
-  // }
+  fieldOssFileInfoMap: { [p: string]: OssFileInfo } = {}
 
   get describableFields() {
     return GeneralDataFormatter.makeDescribableFieldsFromMetadata(this.metadata)
@@ -57,12 +54,33 @@ export class CustomConfigCard extends ViewController {
 
   async viewDidLoad() {
     const attachmentFields = this.describableFields.filter((item) => item.fieldType === FieldType.Attachment)
-    if (attachmentFields.length > 0) {
+    const fieldOssFileInfoMap: { [p: string]: OssFileInfo } = {}
+    attachmentFields
+      .filter((field) => this.configData[field.dataKey])
+      .map((field) => {
+        const data: OssFileInfo = JSON.parse(this.configData[field.dataKey])
+        return data
+      })
+    for (const field of attachmentFields) {
+      if (!this.configData[field.dataKey]) {
+        continue
+      }
+      try {
+        fieldOssFileInfoMap[field.dataKey] = JSON.parse(this.configData[field.dataKey])
+      } catch (e) {}
+    }
+    if (Object.keys(fieldOssFileInfoMap).length > 0) {
       const request = MyAxios(SdkDatawichApis2.OssUrlsSignature)
       request.setBodyData({
-        ossKeys: attachmentFields.map((field) => this.configData[field.dataKey]),
+        ossKeys: Object.values(fieldOssFileInfoMap).map((ossInfo) => {
+          return ossInfo.ossKey
+        }),
       })
-      this.attachmentUrlMap = await request.quickSend()
+      const attachmentUrlMap: { [p: string]: string } = await request.quickSend()
+      Object.values(fieldOssFileInfoMap).forEach((ossInfo) => {
+        ossInfo.url = attachmentUrlMap[ossInfo.ossKey]
+      })
+      this.fieldOssFileInfoMap = fieldOssFileInfoMap
     }
   }
 }

@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import { ActionEventDescriptor, DatawichSystemInfo, TinyModelInfo } from '@fangcha/datawich-service/lib/common/models'
-import { MyAxios, FrontendPluginProtocol } from '@fangcha/vue/basic'
+import { FrontendPluginProtocol, MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { NotificationCenter } from 'notification-center-js'
-import { SdkDatawichApis } from '@fangcha/datawich-service/lib/common/sdk-api'
+import { SdkDatawichApis2 } from '@fangcha/datawich-service/lib/common/sdk-api'
 import { GeneralDataManager } from './GeneralDataManager'
 import { AttachmentOptions } from './plugins/attachment/AttachmentOptions'
 import { FieldPluginCenter, FieldPluginProtocol } from './core'
@@ -47,7 +47,7 @@ class _DatawichFrontendService implements FrontendPluginProtocol {
   }
 
   public async reloadSystemInfo() {
-    const request = MyAxios(SdkDatawichApis.SystemInfoGet)
+    const request = MyAxios(SdkDatawichApis2.SystemInfoGet)
     this.systemInfo = await request.quickSend()
     NotificationCenter.defaultCenter().postNotification('__onDatawichSystemInfoChanged')
   }

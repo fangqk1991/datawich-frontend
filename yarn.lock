@@ -957,10 +957,10 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/datawich-service@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.3.1.tgz#ade2902180f5246f6facfd149fc1ba99012507c2"
-  integrity sha512-XBIAaL4xtV9Mv+90tTf3SLkoWuZZmvfgdpBhMr5D0WSwgs1x+spiWPcQM6SBb3jNpMGfjhWU6CeVWlX5JnYlyQ==
+"@fangcha/datawich-service@^0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.4.0.tgz#a0c6d163e8092da0c59b97fac8e9b92fa5489c12"
+  integrity sha512-vNmj5JUlnXNpWN+xhrZ2ONbQvZG4smTUJX1AilbvFRamjwzFL8+TftMlbynYLnnZ2GAiE3nPMyGOWBnWR1fxEw==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
     "@fangcha/general-group" "^0.1.1"

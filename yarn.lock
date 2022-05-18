@@ -1037,10 +1037,10 @@
     tslib "^2.3.1"
     uuid "^3.3.3"
 
-"@fangcha/vue@^0.23.5":
-  version "0.23.5"
-  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.23.5.tgz#92943460bbef42c91019bb0360eee9632cdc121d"
-  integrity sha512-E3cvXLb8ACEZ20VAKeLc1wsXlI3l7I7rqx7hjdaBPEcoLCZX/2Tg7IS3N8dTYE6VXneKJLtddMBRCmOKThXE8w==
+"@fangcha/vue@^0.26.0":
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.26.0.tgz#446160c90d24885949e0b09cad15c4bc70e17dca"
+  integrity sha512-Q9vVmjPElrGaDCMPQ8RlGm6etg+Cj4R8tpGwz1pGqiGOorMGdHKV40oISrrY99zPq2979qpQ8WF8cGF2Ly9cDQ==
   dependencies:
     "@fangcha/app-request" "^1.3.0"
     "@fangcha/tools" "^1.17.1"

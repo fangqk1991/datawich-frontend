@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-frontend",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
@@ -12,12 +12,10 @@
   ],
   "author": "fang <me@fangqk.com>",
   "license": "MIT",
-  "dependencies": {
-    "@fangcha/tools": "^1.18.0",
-    "@fangcha/vue": "^0.23.5",
-    "fc-queue": "^0.4.0"
-  },
   "devDependencies": {
+    "@fangcha/tools": "^1.18.0",
+    "@fangcha/vue": "^0.26.0",
+    "fc-queue": "^0.4.0",
     "@fangcha/datawich-service": "^0.6.2",
     "@fangcha/eslint": "^0.2.0",
     "@fangcha/webpack": "^0.4.0",

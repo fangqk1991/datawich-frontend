@@ -1,10 +1,16 @@
 import { Component } from 'vue-property-decorator'
-import { Prop, ViewController } from '@fangcha/vue'
-import { FieldType, GeneralDataFormatter, ModelFullMetadata } from '@fangcha/datawich-service/lib/common/models'
+import { i18n, Prop, ViewController } from '@fangcha/vue'
+import {
+  FieldType,
+  GeneralDataFormatter,
+  ModelFieldModel,
+  ModelFullMetadata,
+} from '@fangcha/datawich-service/lib/common/models'
 import { MultiEnumContainer, TagsContainer } from '../data-app'
 import { MyAxios } from '@fangcha/vue/basic'
 import { SdkDatawichApis2 } from '@fangcha/datawich-service/lib/common/sdk-api'
 import { OssFileInfo } from '@fangcha/oss-service/lib/common/models'
+import { I18nCode } from '@fangcha/tools'
 
 @Component({
   components: {
@@ -13,8 +19,8 @@ import { OssFileInfo } from '@fangcha/oss-service/lib/common/models'
   },
   template: `
     <ul class="my-0 pl-3">
-      <li v-for="field of describableFields" :key="field.dataKey">
-        <b>{{ field.name }}</b> :
+      <li v-for="field of modelFields" :key="field.dataKey">
+        <b>{{ getFieldName(field) }}</b>:
         <tags-container
           v-if="field.fieldType === FieldType.Tags"
           :options="field.options"
@@ -46,14 +52,24 @@ export class CustomConfigCard extends ViewController {
     super()
   }
 
+  getFieldName(field: ModelFieldModel) {
+    const nameI18n = field.nameI18n || {}
+    if (i18n.locale === 'en') {
+      return nameI18n[I18nCode.en] || field.name
+    }
+    return nameI18n[I18nCode.zhHans] || field.name
+  }
+
   fieldOssFileInfoMap: { [p: string]: OssFileInfo } = {}
 
-  get describableFields() {
-    return GeneralDataFormatter.makeDescribableFieldsFromMetadata(this.metadata)
+  get modelFields() {
+    return this.metadata.modelFields
+      .filter((item) => !item.isHidden)
+      .map((item) => GeneralDataFormatter.formatModelField(item))
   }
 
   async viewDidLoad() {
-    const attachmentFields = this.describableFields.filter((item) => item.fieldType === FieldType.Attachment)
+    const attachmentFields = this.modelFields.filter((item) => item.fieldType === FieldType.Attachment)
     const fieldOssFileInfoMap: { [p: string]: OssFileInfo } = {}
     attachmentFields
       .filter((field) => this.configData[field.dataKey])

@@ -55,8 +55,8 @@ export class LogicExpressionDialog extends TypicalDialog<LogicExpression> {
       LogicExpressionHelper.checkExpressionValid(expressionMeta)
       this.expression = expressionMeta
       this.expressionStr = JSON.stringify(expressionMeta, null, 2)
-    } catch (e: any) {
-      AlertTools.showAlert(e.message)
+    } catch (e) {
+      AlertTools.showAlert((e as any).message)
     }
   }
 }

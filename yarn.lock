@@ -972,15 +972,13 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/datawich-service@^0.8.4":
-  version "0.8.4"
-  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.8.4.tgz#996aaeaa5f41c704a2ecf5e7b9dbd0d54295b490"
-  integrity sha512-sH0rW0OoatbyqcnrTzf0fC8fA1sRBncDeC+jgCdPUgtzrgh15oTuWzliYjLVlTbwDZLglSVlMuktSI0CknF9WA==
+"@fangcha/datawich-service@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.10.0.tgz#8d7138a4652c2eaf6cbb88369d30d3749acb6bc0"
+  integrity sha512-8rK/n8V7DGMvE6O2c8IADQcRfDRQAjY1F25eVlRDc48pxdsNFXA0g1T0po0a9CK5KKZA4Dra2IxqsH3LWlFLDw==
   dependencies:
     "@fangcha/ali-oss" "^1.0.0"
-    "@fangcha/general-group" "^0.1.1"
     "@fangcha/logger" "^0.2.0"
-    "@fangcha/tools" "^1.18.0"
     fc-feed "^0.16.0"
     fc-model "^0.4.2"
     fc-sql "^0.28.0"
@@ -1005,18 +1003,6 @@
     eslint-plugin-standard "^4.0.1"
     eslint-plugin-vue "^6.1.2"
     prettier "^2.5.1"
-
-"@fangcha/general-group@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/general-group/-/general-group-0.1.1.tgz#3815ae64ddd63a39a06b0b3d4a884d9a638fb49b"
-  integrity sha512-HYFdHcvQ5f37q0TEgcaKJB6J+Ua6bhAWT7XSTo6sdHJJ/bE0lbrq5s9P2bmVI63hj7fXdm2x4rSOQEg0i2Mgqg==
-  dependencies:
-    "@fangcha/assert" "^1.1.0"
-    "@fangcha/logger" "^0.2.0"
-    "@fangcha/tools" "^1.18.0"
-    fc-feed "^0.16.0"
-    fc-sql "^0.28.0"
-    tslib "^2.4.0"
 
 "@fangcha/logger@^0.2.0":
   version "0.2.0"

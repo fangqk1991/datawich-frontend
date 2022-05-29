@@ -3,6 +3,7 @@ import { I18nCode, VisitorInfo } from '@fangcha/tools'
 import '@fangcha/vue/fangcha/fc-styles.scss'
 import DataAppListView from './views/data-app/DataAppListView'
 import DataDisplayView from './views/data-app/DataDisplayView'
+import { LogicExpressionView } from './views/components/LogicExpressionView'
 
 const app = new AdminApp({
   appName: 'Datawich 🍰',
@@ -33,6 +34,18 @@ const app = new AdminApp({
         },
       ],
     },
+    {
+      titleEn: '相关组件',
+      titleZh: '相关组件',
+      icon: 'el-icon-lock',
+      links: [
+        {
+          titleEn: '逻辑表达式',
+          titleZh: '逻辑表达式',
+          path: '/v0/component/logic-expression',
+        },
+      ],
+    },
   ],
   routes: [
     {
@@ -45,6 +58,11 @@ const app = new AdminApp({
       component: DataDisplayView,
       name: 'DataDisplayView',
       props: true,
+    },
+    {
+      path: '/v0/component/logic-expression',
+      component: LogicExpressionView,
+      name: 'LogicExpressionView',
     },
   ],
   reloadUserInfo: async (): Promise<VisitorInfo> => {

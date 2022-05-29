@@ -7,6 +7,8 @@ import {
   FieldType,
   fieldWidgetStyle,
   GeneralDataChecker,
+  LogicExpression,
+  LogicExpressionHelper,
   ModelFieldModel,
 } from '@fangcha/datawich-service/lib/common/models'
 import * as moment from 'moment'
@@ -45,7 +47,7 @@ const _getCalcDate = (dateDesc: string) => {
     <el-form label-width="160px" @submit.native.prevent="onEnter">
       <slot />
       <el-form-item
-        v-for="field in allFields"
+        v-for="field in visibleFields"
         :key="field.fieldKey"
         :required="!!field.required"
         size="mini"
@@ -210,6 +212,8 @@ export class DataNormalForm extends ViewController {
     }
   } = {}
 
+  visibleLogicMap: { [fieldKey: string]: LogicExpression } = {}
+
   constructor() {
     super()
   }
@@ -245,8 +249,26 @@ export class DataNormalForm extends ViewController {
     this.onFieldsChanged()
   }
 
+  get visibleFields() {
+    return this.allFields.filter((field) => {
+      if (this.visibleLogicMap[field.fieldKey]) {
+        return LogicExpressionHelper.calcExpression(this.visibleLogicMap[field.fieldKey], this.myData)
+      }
+      return true
+    })
+  }
+
   onFieldsChanged() {
     const fields = this.allFields
+    {
+      const visibleLogicMap: { [fieldKey: string]: LogicExpression } = {}
+      fields.forEach((field) => {
+        if (field.extrasData.visibleLogic) {
+          visibleLogicMap[field.fieldKey] = field.extrasData.visibleLogic
+        }
+      })
+      this.visibleLogicMap = visibleLogicMap
+    }
     {
       const pickerOptionsMap = {}
       fields

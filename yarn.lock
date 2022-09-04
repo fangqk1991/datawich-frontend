@@ -972,6 +972,11 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
+"@fangcha/backend-kit@^0.30.0":
+  version "0.30.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.30.0.tgz#c7161380bef2017e3450636396c434cf9d0823dc"
+  integrity sha512-QGqQN0YJT8jz+MtI3ygxuwrxT1XYOZooBnTNMylCF9Os1/FtN0JzqtKde2sFgulbKXNkKs9t80ApGTbSw95GTg==
+
 "@fangcha/datawich-service@^0.20.2":
   version "0.20.2"
   resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.20.2.tgz#770731421fd834acb5341f10930bbd6a90523e17"

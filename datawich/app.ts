@@ -4,6 +4,8 @@ import '@fangcha/vue/fangcha/fc-styles.scss'
 import DataAppListView from './views/data-app/DataAppListView'
 import DataDisplayView from './views/data-app/DataDisplayView'
 import { LogicExpressionView } from './views/components/LogicExpressionView'
+import { MyAxios } from '@fangcha/vue/basic'
+import { KitProfileApis } from '@fangcha/backend-kit/lib/apis'
 
 const app = new AdminApp({
   appName: 'Datawich 🍰',
@@ -66,13 +68,13 @@ const app = new AdminApp({
     },
   ],
   reloadUserInfo: async (): Promise<VisitorInfo> => {
+    const request = MyAxios(KitProfileApis.BasicProfileGet)
+    const response = await request.quickSend<{ email: string }>()
     return {
       iamId: 0,
-      email: 'xxx@email.com',
-      name: 'Fangcha',
-      permissionKeyMap: {
-        Red: 1,
-      },
+      email: response.email,
+      name: response.email,
+      permissionKeyMap: {},
       isAdmin: true,
       locale: I18nCode.en,
     }

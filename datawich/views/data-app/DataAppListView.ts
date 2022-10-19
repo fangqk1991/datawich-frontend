@@ -2,7 +2,7 @@ import { Component, GridView, TableViewProtocol, ViewController } from '@fangcha
 import { DataModelModel } from '@fangcha/datawich-service/lib/common/models'
 import { DataAppApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { MyAxios } from '@fangcha/vue/basic'
-import { getRouterToDataApp } from '../../services/ModelDataHelper'
+import { getRouterToDataApp } from '../../../src'
 
 @Component({
   components: {

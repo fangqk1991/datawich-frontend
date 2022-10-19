@@ -6,6 +6,7 @@ import DataDisplayView from './views/data-app/DataDisplayView'
 import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
 import { KitProfileApis } from '@fangcha/backend-kit/lib/apis'
+import { MyFavorSidebar } from '../src'
 
 const app = new AdminApp({
   appName: 'Datawich 🍰',
@@ -67,6 +68,9 @@ const app = new AdminApp({
       name: 'LogicExpressionView',
     },
   ],
+  appDidLoad: async () => {
+    MyFavorSidebar.reloadFavorApps()
+  },
   reloadUserInfo: async (): Promise<VisitorInfo> => {
     const request = MyAxios(KitProfileApis.BasicProfileGet)
     const response = await request.quickSend<{ email: string }>()

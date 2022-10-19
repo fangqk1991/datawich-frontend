@@ -29,7 +29,8 @@ import { CheckOption } from '@fangcha/tools'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { DownloadTaskHelper } from '@fangcha/vue/oss-service'
-import { DataDialogProtocol, GeneralDataDialog, MyDataColumn } from '../../../src'
+import { DataDialogProtocol, DatawichEventKeys, GeneralDataDialog, MyDataColumn, MyFavorSidebar } from '../../../src'
+import { NotificationCenter } from 'notification-center-js'
 
 interface DataRecord {
   rid: number
@@ -70,6 +71,10 @@ const trimParams = (params: {}) => {
                 模型管理
               </router-link>
             </template>
+            |
+            <a :style="{ color: '#4b5cc4', cursor: 'pointer' }" href="javascript:" @click="toggleFavor">
+              {{ favored ? '取消关注' : '关注' }}
+            </a>
           </el-breadcrumb-item>
         </el-breadcrumb>
         <hr/>
@@ -283,6 +288,11 @@ export default class DataDisplayView extends ViewController {
     this.reloadDisplaySettings()
     this.loadFieldsData().then(() => {
       this.tableView.reloadData()
+    })
+
+    this.favored = MyFavorSidebar.checkAppFavor(this.modelKey)
+    NotificationCenter.defaultCenter().addObserver(DatawichEventKeys.kOnFavorDataAppsChanged, () => {
+      this.favored = MyFavorSidebar.checkAppFavor(this.modelKey)
     })
 
     if (this.$route.query._data_id) {
@@ -579,5 +589,11 @@ export default class DataDisplayView extends ViewController {
       }
       this.reloadData()
     })
+  }
+
+  favored = false
+  async toggleFavor() {
+    this.favored = !this.favored
+    await MyFavorSidebar.toggleAppFavor(this.modelKey)
   }
 }

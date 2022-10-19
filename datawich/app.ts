@@ -1,16 +1,22 @@
 import { AdminApp } from '@fangcha/vue/app-admin'
+import { OssFrontendService } from '@fangcha/vue/oss-service'
 import { I18nCode, VisitorInfo } from '@fangcha/tools'
 import '@fangcha/vue/fangcha/fc-styles.scss'
-import DataAppListView from './views/data-app/DataAppListView'
 import DataDisplayView from './views/data-app/DataDisplayView'
 import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
 import { KitProfileApis } from '@fangcha/backend-kit/lib/apis'
-import { MyFavorSidebar } from '../src'
+import { DataAppListView, MyFavorSidebar } from '../src'
+
+OssFrontendService.init({
+  defaultBucketName: 'fc-web-oss',
+  defaultOssZone: 'datawich',
+})
 
 const app = new AdminApp({
   appName: 'Datawich 🍰',
   useRemoteLocale: false,
+  plugins: [OssFrontendService],
   sidebarNodes: [
     {
       uid: 'data-apps',

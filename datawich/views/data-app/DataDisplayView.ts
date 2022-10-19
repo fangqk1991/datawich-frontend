@@ -29,7 +29,14 @@ import { CheckOption } from '@fangcha/tools'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { DownloadTaskHelper } from '@fangcha/vue/oss-service'
-import { DataDialogProtocol, DatawichEventKeys, GeneralDataDialog, MyDataColumn, MyFavorSidebar } from '../../../src'
+import {
+  DataDialogProtocol,
+  DatawichEventKeys,
+  GeneralDataDialog,
+  GeneralDataImportPanel,
+  MyDataColumn,
+  MyFavorSidebar
+} from '../../../src'
 import { NotificationCenter } from 'notification-center-js'
 
 interface DataRecord {
@@ -54,6 +61,7 @@ const trimParams = (params: {}) => {
   components: {
     'my-table-view': MyTableView,
     'my-data-column': MyDataColumn,
+    'general-data-import-panel': GeneralDataImportPanel,
   },
   template: `
     <div>
@@ -222,6 +230,9 @@ const trimParams = (params: {}) => {
               </template>
             </el-table-column>
           </my-table-view>
+        </el-card>
+        <el-card v-if="dataModel" class="mt-3" v-show="!hideCreateButton">
+          <general-data-import-panel :data-model="dataModel" :fields="mainFields" @on-tasks-done="reloadData" />
         </el-card>
       </div>
     </div>

@@ -4,8 +4,8 @@ import { NotificationCenter } from 'notification-center-js'
 import { CommonAPI } from '@fangcha/app-request'
 import { MenuSubNode } from '@fangcha/vue'
 import { MyAxios } from '@fangcha/vue/basic'
-import { DatawichEventKeys } from '../src/core'
-import { getRouterToDataApp } from '../src/utils'
+import { DatawichEventKeys } from '../../src/core'
+import { getRouterToDataApp } from '../../src/utils'
 
 class _MyFavorSidebar {
   private _favorApps?: DataModelModel[]

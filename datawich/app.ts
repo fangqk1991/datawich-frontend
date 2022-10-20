@@ -6,7 +6,7 @@ import DataDisplayView from './views/data-app/DataDisplayView'
 import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
 import { KitProfileApis } from '@fangcha/backend-kit/lib/apis'
-import { DataAppListView, MyFavorSidebar } from '../app-core'
+import { DataAppListView, ModelClientListView, MyFavorSidebar } from '../app-core'
 
 OssFrontendService.init({
   defaultBucketName: 'fc-web-oss',
@@ -41,6 +41,11 @@ const app = new AdminApp({
           titleZh: '模型管理',
           path: '/v2/data-model',
         },
+        {
+          titleEn: 'API 应用管理',
+          titleZh: 'API 应用管理',
+          path: '/v1/model-client',
+        },
       ],
     },
     {
@@ -67,6 +72,11 @@ const app = new AdminApp({
       component: DataDisplayView,
       name: 'DataDisplayView',
       props: true,
+    },
+    {
+      path: '/v1/model-client',
+      component: ModelClientListView,
+      name: 'ModelClientListView',
     },
     {
       path: '/v0/component/logic-expression',

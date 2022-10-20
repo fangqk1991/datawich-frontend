@@ -7,6 +7,8 @@ import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
 import { KitProfileApis } from '@fangcha/backend-kit/lib/apis'
 import { DataAppListView, ModelClientListView, MyFavorSidebar, UserGroupListView } from '../app-core'
+import { DataModelListView } from '../app-core/data-model/DataModelListView'
+import { DataModelManageView } from '../app-core/data-model/DataModelManageView'
 
 OssFrontendService.init({
   defaultBucketName: 'fc-web-oss',
@@ -77,6 +79,16 @@ const app = new AdminApp({
       component: DataDisplayView,
       name: 'DataDisplayView',
       props: true,
+    },
+    {
+      path: '/v2/data-model',
+      component: DataModelListView,
+      name: 'DataModelListView',
+    },
+    {
+      path: '/v2/data-model/:modelKey',
+      component: DataModelManageView,
+      name: 'DataModelManageView',
     },
     {
       path: '/v1/user-group',

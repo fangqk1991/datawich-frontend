@@ -956,10 +956,10 @@
   resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.31.0.tgz#7ea2b58983018a772a76691939d33a6f4be72c69"
   integrity sha512-l3g2UpNc8oWTm37cXCcT9sBa0bZWEHtIVuYO0oJ2TQRYPOAKi7CEP4Th2jsUZNwij49W6hrE8KNk7uHjBkQyzA==
 
-"@fangcha/datawich-service@^0.22.1":
-  version "0.22.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.22.1.tgz#e5948c4e1f45ca9a83f537ea6a7f0883d2ea8d9e"
-  integrity sha512-GKetu6WxmXOfAoiKUwwTUrs473dRJO1Z25WUdbAFEYUf8+0BSEO/IBZS4cJsi7hqd+A5zQYHH5MMyxq0UzKweA==
+"@fangcha/datawich-service@^0.22.2":
+  version "0.22.2"
+  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.22.2.tgz#75655bf9b22411bbbd72cda8d298a36fa631892e"
+  integrity sha512-qx6yPJJ+LT89NMZzfazn49KjkABXvuarb6QqkizfQYeP6mJw7pjCn178NqeCbVX0bbOU/ZwAbi5CJdHccBGyOg==
 
 "@fangcha/eslint@^0.2.0":
   version "0.2.0"

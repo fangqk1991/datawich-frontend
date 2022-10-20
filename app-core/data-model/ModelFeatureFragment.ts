@@ -6,6 +6,7 @@ import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { ModelFragmentBase } from './ModelFragmentBase'
 import { DatawichEventKeys } from '../../src'
+import { EmailEditDialog } from '../widgets/EmailEditDialog'
 
 @Component({
   components: {
@@ -188,14 +189,14 @@ export class ModelFeatureFragment extends ModelFragmentBase {
   }
 
   onEditEmailTemplate() {
-    // const dialog = EmailEditDialog.dialogForEdit(this.modelKey)
-    // dialog.show(async (emailEntity) => {
-    //   await this.execHandler(async () => {
-    //     const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelNotifyTemplateUpdate, this.modelKey))
-    //     request.setBodyData({ emailEntityStr: JSON.stringify(emailEntity) })
-    //     await request.execute()
-    //     this.$message.success('更新成功')
-    //   })
-    // })
+    const dialog = EmailEditDialog.dialogForEdit(this.modelKey)
+    dialog.show(async (emailEntity) => {
+      await this.execHandler(async () => {
+        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelNotifyTemplateUpdate, this.modelKey))
+        request.setBodyData({ emailEntityStr: JSON.stringify(emailEntity) })
+        await request.execute()
+        this.$message.success('更新成功')
+      })
+    })
   }
 }

@@ -6,7 +6,7 @@ import DataDisplayView from './views/data-app/DataDisplayView'
 import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
 import { KitProfileApis } from '@fangcha/backend-kit/lib/apis'
-import { DataAppListView, MyFavorSidebar } from '../src'
+import { DataAppListView, MyFavorSidebar } from '../app-core'
 
 OssFrontendService.init({
   defaultBucketName: 'fc-web-oss',

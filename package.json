@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-frontend",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
@@ -44,7 +44,8 @@
     "trailingComma": "es5"
   },
   "files": [
-    "src/*"
+    "src/*",
+    "app-core/*"
   ],
   "nyc": {
     "sourceMap": false

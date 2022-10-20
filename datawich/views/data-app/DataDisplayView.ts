@@ -35,9 +35,9 @@ import {
   GeneralDataDialog,
   GeneralDataImportPanel,
   MyDataColumn,
-  MyFavorSidebar
 } from '../../../src'
 import { NotificationCenter } from 'notification-center-js'
+import { MyFavorSidebar } from '../../../app-core'
 
 interface DataRecord {
   rid: number

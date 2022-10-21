@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-frontend",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
@@ -15,7 +15,7 @@
   "devDependencies": {
     "@fangcha/assert": "^1.1.0",
     "@fangcha/backend-kit": "^0.31.0",
-    "@fangcha/datawich-service": "^0.22.2",
+    "@fangcha/datawich-service": "^0.23.2",
     "@fangcha/eslint": "^0.2.0",
     "@fangcha/general-group": "^0.2.0",
     "@fangcha/oss-service": "^0.6.0",

@@ -1,6 +1,6 @@
 import { Component, MyTableView, Prop, TableViewProtocol, ViewController } from '@fangcha/vue'
 import { GeneralPermissionDescriptor } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { ModelGroupApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { CommonGroupModel, GroupSpace } from '@fangcha/general-group/lib/common/models'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
@@ -41,7 +41,7 @@ export class LinkedGroupTable extends ViewController {
   get delegate(): TableViewProtocol {
     return {
       loadData: async (_retainParams) => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.ModelLinkedGroupListGet, this.modelKey))
+        const request = MyAxios(new CommonAPI(ModelGroupApis.ModelLinkedGroupListGet, this.modelKey))
         const items = (await request.quickSend()) as CommonGroupModel[]
         return {
           totalSize: items.length,

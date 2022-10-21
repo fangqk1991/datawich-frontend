@@ -1,6 +1,6 @@
 import { Component } from '@fangcha/vue'
 import { FieldType, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { ModelFieldApis } from '@fangcha/datawich-service/lib/common/web-api'
 import EnumFieldExtensionBase from './EnumFieldExtensionBase'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
@@ -102,7 +102,7 @@ export default class EnumFieldExtension extends EnumFieldExtensionBase {
   }
 
   async loadPotentialParentFields() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelVisibleFieldListGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelVisibleFieldListGet, this.modelKey))
     const fields = (await request.quickSend()) as ModelFieldModel[]
     this.restraintInfo.potentialParentFields = fields.filter((field) => {
       return field.fieldType === FieldType.Enum || field.fieldType === FieldType.TextEnum

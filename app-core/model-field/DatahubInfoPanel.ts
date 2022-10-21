@@ -4,7 +4,7 @@ import {
   DatahubColumnModel,
   DatahubSyncProgressModel,
 } from '@fangcha/datawich-service/lib/common/models'
-import { DatahubApis, GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DatahubApis, DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { MyTableView, TableViewProtocol } from '@fangcha/vue'
 import { SimpleInputDialog } from '@fangcha/vue'
 import { ConfirmDialog } from '@fangcha/vue'
@@ -71,7 +71,7 @@ export class DatahubInfoPanel extends ViewController {
   get delegate(): TableViewProtocol {
     return {
       loadData: async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.ModelDatahubFieldListGet, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.ModelDatahubFieldListGet, this.modelKey))
         const items = (await request.quickSend()) as DatahubColumnModel[]
         return {
           totalSize: items.length,
@@ -104,7 +104,7 @@ export class DatahubInfoPanel extends ViewController {
   }
 
   async loadMainInfo() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.ModelDatahubInfoGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(DataModelApis.ModelDatahubInfoGet, this.modelKey))
     this.mainInfo = await request.quickSend()
   }
 
@@ -134,7 +134,7 @@ export class DatahubInfoPanel extends ViewController {
     dialog.content = `是否载入最新数据？<br /><small style="color: red; font-weight: bold;">本操作为全量替换，如无必要，请勿频繁操作</small>`
     dialog.show(async () => {
       await LoadingView.loadHandler('正在载入数据，请稍等...', async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.ModelDatahubRecordsLoad, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.ModelDatahubRecordsLoad, this.modelKey))
         await request.execute()
       })
       NotificationCenter.defaultCenter().postNotification(DatawichEventKeys.kOnDataModelNeedReload, this.modelKey)
@@ -152,7 +152,7 @@ export class DatahubInfoPanel extends ViewController {
     dialog.modelKey = this.modelKey
     dialog.show(async (params: any) => {
       await LoadingView.loadHandler('正在绑定及载入数据，请稍等', async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.ModelDatahubColumnBind, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.ModelDatahubColumnBind, this.modelKey))
         request.setBodyData({
           columnKey: feed.columnKey,
           fieldData: params,

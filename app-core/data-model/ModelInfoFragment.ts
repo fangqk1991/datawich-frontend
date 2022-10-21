@@ -1,6 +1,6 @@
 import { DataModelModel } from '@fangcha/datawich-service/lib/common/models'
 import { Component, ConfirmDialog, SimpleInputDialog } from '@fangcha/vue'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { NotificationCenter } from 'notification-center-js'
 import { CommonAPI } from '@fangcha/app-request'
 import { MyAxios } from '@fangcha/vue/basic'
@@ -134,7 +134,7 @@ export class ModelInfoFragment extends ModelFragmentBase {
 
   async loadOuterModels() {
     if (this.dataModel.isLibrary) {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelOuterModelListGet, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.DataModelOuterModelListGet, this.modelKey))
       this.outerModels = (await request.quickSend()) as DataModelModel[]
     }
   }
@@ -143,13 +143,13 @@ export class ModelInfoFragment extends ModelFragmentBase {
     this.loadOuterModels()
     this.loadShadowModels()
     {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelSummaryInfoGet, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.DataModelSummaryInfoGet, this.modelKey))
       this.summaryInfo = await request.quickSend()
     }
   }
 
   async loadShadowModels() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelShadowModelListGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(DataModelApis.DataModelShadowModelListGet, this.modelKey))
     this.shadowModels = (await request.quickSend()) as DataModelModel[]
   }
 
@@ -158,7 +158,7 @@ export class ModelInfoFragment extends ModelFragmentBase {
     dialog.placeholder = '模型 Key'
     dialog.show(async (modelKey: string) => {
       await this.execHandler(async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelClone, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.DataModelClone, this.modelKey))
         request.setBodyData({ to_key: modelKey })
         await request.execute()
         this.$message.success('克隆成功，跳转中……')
@@ -182,7 +182,7 @@ export class ModelInfoFragment extends ModelFragmentBase {
     dialog.content = `确定要清空 "${this.dataModel.name}" 的所有数据吗？`
     dialog.show(async () => {
       await this.execHandler(async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelRecordsEmpty, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.DataModelRecordsEmpty, this.modelKey))
         await request.execute()
         this.$message.success('数据已清空')
         NotificationCenter.defaultCenter().postNotification(DatawichEventKeys.kOnDataModelNeedReload, this.modelKey)
@@ -193,7 +193,7 @@ export class ModelInfoFragment extends ModelFragmentBase {
   onEditModel() {
     const dialog = DataModelDialog.editModelDialog(this.dataModel)
     dialog.show(async (params: any) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelUpdate, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.DataModelUpdate, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('更新成功')
@@ -207,7 +207,7 @@ export class ModelInfoFragment extends ModelFragmentBase {
     dialog.description = '请使用 {{.xxxx}} 表示变量'
     dialog.content = this.dataModel.extrasData.dataInfoTmpl || ''
     dialog.show(async (dataInfoTmpl) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelUpdate, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.DataModelUpdate, this.modelKey))
       request.setBodyData({
         dataInfoTmpl: dataInfoTmpl,
       })
@@ -222,7 +222,7 @@ export class ModelInfoFragment extends ModelFragmentBase {
     dialog.title = '编辑别名'
     dialog.content = this.dataModel.keyAlias
     dialog.show(async (keyAlias) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelUpdate, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.DataModelUpdate, this.modelKey))
       request.setBodyData({
         keyAlias: keyAlias,
       })

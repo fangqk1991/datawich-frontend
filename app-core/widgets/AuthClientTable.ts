@@ -1,6 +1,6 @@
 import { Component, ConfirmDialog, MyTableView, Prop, ViewController } from '@fangcha/vue'
 import { ClientAuthModel, ModelClientModel } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataApis, ModelClientApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DatawichClientApis, ModelClientApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { SelectOption } from '@fangcha/tools'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
@@ -42,7 +42,7 @@ export class AuthClientTable extends ViewController {
   }
 
   async loadAllClients() {
-    const request = MyAxios(ModelClientApis.ModelClientListGet)
+    const request = MyAxios(DatawichClientApis.ModelClientListGet)
     request.setQueryParams({ _length: 10000 })
     const { elements: clients } = (await request.quickSend()) as {
       elements: ModelClientModel[]
@@ -57,7 +57,7 @@ export class AuthClientTable extends ViewController {
 
   async reloadClientList() {
     await this.execHandler(async () => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelAuthClientListGet, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelClientApis.ModelAuthClientListGet, this.modelKey))
       this.authClientList = await request.quickSend()
     })
   }
@@ -67,7 +67,7 @@ export class AuthClientTable extends ViewController {
     dialog.title = '移除 appid'
     dialog.content = `确定要移除 "${client.appid}" 吗？`
     dialog.show(async () => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelAuthClientDelete, this.modelKey, client.appid))
+      const request = MyAxios(new CommonAPI(ModelClientApis.ModelAuthClientDelete, this.modelKey, client.appid))
       await request.execute()
       this.$message.success('移除成功')
       this.reloadClientList()
@@ -79,7 +79,7 @@ export class AuthClientTable extends ViewController {
       return
     }
     await this.execHandler(async () => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelAuthClientListUpdate, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelClientApis.ModelAuthClientListUpdate, this.modelKey))
       request.setBodyData([
         {
           modelKey: this.modelKey,

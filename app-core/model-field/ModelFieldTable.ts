@@ -21,7 +21,7 @@ import {
   LogicExpressionHelper,
   ModelFieldModel,
 } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis, ModelFieldApis, ModelIndexApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { CheckOption, SelectOption } from '@fangcha/tools'
 import ModelFieldDialog from './ModelFieldDialog'
 import SystemFieldDialog from './SystemFieldDialog'
@@ -206,7 +206,7 @@ export class ModelFieldTable extends ViewController {
   get delegate(): TableViewProtocol {
     return {
       loadData: async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldListGet, this.modelKey))
+        const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldListGet, this.modelKey))
         const items = (await request.quickSend()) as ModelFieldModel[]
         this.fields = items
         this.fieldMap = items.reduce((result, cur) => {
@@ -246,7 +246,7 @@ export class ModelFieldTable extends ViewController {
 
   reloadData() {
     {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelColumnIndexListGet, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelIndexApis.DataModelColumnIndexListGet, this.modelKey))
       request.quickSend().then((items: FieldIndexModel[]) => {
         this.indexMap = items.reduce((result, cur) => {
           result[cur.fieldKey] = cur
@@ -270,7 +270,7 @@ export class ModelFieldTable extends ViewController {
     const dialog = MultiplePickerDialog.dialogWithOptions(options)
     dialog.title = `展示系统字段`
     dialog.show(async (fieldKeys: string[]) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelSystemFieldsShow, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelSystemFieldsShow, this.modelKey))
       request.setBodyData({
         fieldKeys: fieldKeys,
       })
@@ -284,7 +284,7 @@ export class ModelFieldTable extends ViewController {
     const dialog = ModelFieldDialog.createFieldDialog()
     dialog.modelKey = this.modelKey
     dialog.show(async (params: any) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldCreate, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldCreate, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('创建成功')
@@ -300,7 +300,7 @@ export class ModelFieldTable extends ViewController {
     const dialog = JsonImportDialog.dialog()
     dialog.title = '导入字段 JSON'
     dialog.show(async (params) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldCreate, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldCreate, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('创建成功')
@@ -312,7 +312,7 @@ export class ModelFieldTable extends ViewController {
     const dialog = ShadowFieldDialog.createFieldDialog()
     dialog.modelKey = this.modelKey
     dialog.show(async (params: any) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelShadowFieldCreate, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.ModelShadowFieldCreate, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('创建成功')
@@ -342,7 +342,7 @@ export class ModelFieldTable extends ViewController {
     const dialog = ModelFieldDialog.createFieldDialog(fromField)
     dialog.modelKey = this.modelKey
     dialog.show(async (params: any) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldCreate, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldCreate, this.modelKey))
       request.setBodyData(params)
       const field = (await request.quickSend()) as ModelFieldModel
       this.$message.success('创建成功')
@@ -360,7 +360,7 @@ export class ModelFieldTable extends ViewController {
     dialog.title = `请确认`
     dialog.content = `是否将 ${fromField.name} [${fromField.fieldKey}] 中的数据填充到 ${toField.name} [${toField.fieldKey}]？<br /><small style="color: red; font-weight: bold;">本操作为全量覆盖，且不可撤销，请务必谨慎</small>`
     dialog.show(async () => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldDataClone, this.modelKey, toField.fieldKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldDataClone, this.modelKey, toField.fieldKey))
       request.setBodyData({
         copyFromFieldKey: fromField.fieldKey,
       })
@@ -374,7 +374,7 @@ export class ModelFieldTable extends ViewController {
   async onAddAction(feed: ModelFieldModel) {
     const dialog = FieldActionDialog.createActionDialog()
     dialog.show(async (params: FieldActionModel) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldActionCreate, feed.modelKey, feed.fieldKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldActionCreate, feed.modelKey, feed.fieldKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('添加成功')
@@ -386,7 +386,7 @@ export class ModelFieldTable extends ViewController {
     const dialog = FieldActionDialog.editActionDialog(action)
     dialog.show(async (params: FieldActionModel) => {
       const request = MyAxios(
-        new CommonAPI(GeneralDataApis.DataModelFieldActionUpdate, field.modelKey, field.fieldKey, action.actionId)
+        new CommonAPI(ModelFieldApis.DataModelFieldActionUpdate, field.modelKey, field.fieldKey, action.actionId)
       )
       request.setBodyData(params)
       await request.execute()
@@ -401,7 +401,7 @@ export class ModelFieldTable extends ViewController {
     dialog.content = `确定要移除 "${action.title}" 吗？`
     dialog.show(async () => {
       const request = MyAxios(
-        new CommonAPI(GeneralDataApis.DataModelFieldActionDelete, field.modelKey, field.fieldKey, action.actionId)
+        new CommonAPI(ModelFieldApis.DataModelFieldActionDelete, field.modelKey, field.fieldKey, action.actionId)
       )
       await request.execute()
       this.$message.success('移除成功')
@@ -425,7 +425,7 @@ export class ModelFieldTable extends ViewController {
     if (feed.isSystem) {
       const dialog = SystemFieldDialog.editFieldDialog(feed)
       dialog.show(async (params: ModelFieldModel) => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataSystemModelFieldUpdate, feed.modelKey, feed.fieldKey))
+        const request = MyAxios(new CommonAPI(ModelFieldApis.DataSystemModelFieldUpdate, feed.modelKey, feed.fieldKey))
         request.setBodyData(params)
         await request.execute()
         this.$message.success('修改成功')
@@ -436,7 +436,7 @@ export class ModelFieldTable extends ViewController {
       dialog.show(async (params: ModelFieldModel) => {
         const handler = async () => {
           const request = MyAxios(
-            new CommonAPI(GeneralDataApis.DataSystemModelFieldUpdate, feed.modelKey, feed.fieldKey)
+            new CommonAPI(ModelFieldApis.DataSystemModelFieldUpdate, feed.modelKey, feed.fieldKey)
           )
           request.setBodyData(params)
           await request.execute()
@@ -450,7 +450,7 @@ export class ModelFieldTable extends ViewController {
       dialog.modelKey = this.modelKey
       dialog.show(async (params: ModelFieldModel) => {
         const handler = async () => {
-          const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldUpdate, feed.modelKey, feed.fieldKey))
+          const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldUpdate, feed.modelKey, feed.fieldKey))
           request.setBodyData(params)
           await request.execute()
           this.$message.success('修改成功')
@@ -467,7 +467,7 @@ export class ModelFieldTable extends ViewController {
     dialog.content = `确定要删除 "${feed.name}" 吗？`
     dialog.show(async () => {
       const handler = async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldDelete, feed.modelKey, feed.fieldKey))
+        const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldDelete, feed.modelKey, feed.fieldKey))
         await request.execute()
         this.$message.success('删除成功')
         this.reloadData()
@@ -478,7 +478,7 @@ export class ModelFieldTable extends ViewController {
   }
 
   async onTopItem(feed: ModelFieldModel) {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldTop, feed.modelKey, feed.fieldKey))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldTop, feed.modelKey, feed.fieldKey))
     await request.execute()
     this.$message.success('置顶成功')
     this.reloadData()
@@ -497,7 +497,7 @@ export class ModelFieldTable extends ViewController {
       feed.extrasData.visibleLogic || LogicExpressionHelper.expressionExample()
     )
     dialog.show(async (expression) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldUpdate, feed.modelKey, feed.fieldKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldUpdate, feed.modelKey, feed.fieldKey))
       request.setBodyData({
         extrasData: {
           visibleLogic: expression,
@@ -516,7 +516,7 @@ export class ModelFieldTable extends ViewController {
       }
     )
     dialog.show(async (expression) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldUpdate, feed.modelKey, feed.fieldKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldUpdate, feed.modelKey, feed.fieldKey))
       request.setBodyData({
         extrasData: {
           requiredLogic: expression,
@@ -561,7 +561,7 @@ export class ModelFieldTable extends ViewController {
   }
 
   createIndex(field: ModelFieldModel, isUnique: boolean) {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelColumnIndexCreate, field.modelKey, field.fieldKey))
+    const request = MyAxios(new CommonAPI(ModelIndexApis.DataModelColumnIndexCreate, field.modelKey, field.fieldKey))
     request.setBodyData({ isUnique: isUnique ? 1 : 0 })
     request
       .execute()
@@ -575,7 +575,7 @@ export class ModelFieldTable extends ViewController {
   }
 
   dropIndex(field: ModelFieldModel) {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelColumnIndexDrop, field.modelKey, field.fieldKey))
+    const request = MyAxios(new CommonAPI(ModelIndexApis.DataModelColumnIndexDrop, field.modelKey, field.fieldKey))
     request
       .execute()
       .then(() => {
@@ -596,7 +596,7 @@ export class ModelFieldTable extends ViewController {
   }
 
   async updateField(field: ModelFieldModel, params: Partial<ModelFieldModel>) {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldUpdate, field.modelKey, field.fieldKey))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldUpdate, field.modelKey, field.fieldKey))
     request.setBodyData(params)
     request
       .execute()
@@ -616,7 +616,7 @@ export class ModelFieldTable extends ViewController {
   transferEnumToTextEnum(field: ModelFieldModel) {
     const dialog = EnumFieldTransferDialog.transferDialog(field.options)
     dialog.show(async (options: any) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelEnumFieldTransfer, field.modelKey, field.fieldKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelEnumFieldTransfer, field.modelKey, field.fieldKey))
       request.setBodyData(options)
       await request.execute()
       this.$message.success('修改成功')
@@ -625,7 +625,7 @@ export class ModelFieldTable extends ViewController {
   }
 
   async reloadGroupItems() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.ModelFieldGroupListGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(DataModelApis.ModelFieldGroupListGet, this.modelKey))
     this.groupItems = (await request.quickSend()) as FieldGroupModel[]
   }
 
@@ -644,7 +644,7 @@ export class ModelFieldTable extends ViewController {
     const dialog = MultiplePickerDialog.dialogWithOptions(options)
     dialog.title = `选择广播字段`
     dialog.show(async (fieldKeys: string[]) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelBroadcastUpdate, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelBroadcastUpdate, this.modelKey))
       request.setBodyData({
         fieldKeys: fieldKeys,
       })

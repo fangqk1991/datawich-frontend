@@ -7,7 +7,7 @@ import {
   ModelMilestoneModel,
 } from '@fangcha/datawich-service/lib/common/models'
 import { CommonAPI } from '@fangcha/app-request'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { ModelFieldApis, ModelMilestoneApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { NotificationCenter } from 'notification-center-js'
 import { MyAxios } from '@fangcha/vue/basic'
 import { DatawichEventKeys, ModelStructurePanel } from '../../src'
@@ -45,7 +45,7 @@ export class MilestoneInfoDialog extends CustomDialog {
     this.title = `Tag: ${this.milestone.tagName}`
 
     const request = MyAxios(
-      new CommonAPI(GeneralDataApis.ModelMilestoneMetadataGet, this.milestone.modelKey, this.milestone.tagName)
+      new CommonAPI(ModelMilestoneApis.ModelMilestoneMetadataGet, this.milestone.modelKey, this.milestone.tagName)
     )
     this.metadata = await request.quickSend()
   }
@@ -58,7 +58,7 @@ export class MilestoneInfoDialog extends CustomDialog {
 
   get downloadUri() {
     const commonApi = new CommonAPI(
-      GeneralDataApis.ModelMilestoneMetadataGet,
+      ModelMilestoneApis.ModelMilestoneMetadataGet,
       this.milestone.modelKey,
       this.milestone.tagName
     )
@@ -74,13 +74,13 @@ export class MilestoneInfoDialog extends CustomDialog {
       const metadata = this.metadata!
 
       {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldListGet, modelKey))
+        const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldListGet, modelKey))
         const items = (await request.quickSend()) as ModelFieldModel[]
         const fields = items.filter((item) => !item.isSystem)
         this.$message.success('成功获取现有模型字段列表')
         for (let i = 0; i < fields.length; ++i) {
           const field = fields[i]
-          const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldDelete, modelKey, field.fieldKey))
+          const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldDelete, modelKey, field.fieldKey))
           await request.execute()
           this.$message.success(`已删除 ${field.name}(${field.fieldKey})，进度 ${i + 1} / ${fields.length}`)
         }
@@ -90,7 +90,7 @@ export class MilestoneInfoDialog extends CustomDialog {
         const fields = metadata.modelFields.filter((item) => !item.isSystem)
         for (let i = 0; i < fields.length; ++i) {
           const field = GeneralDataFormatter.formatModelField(fields[i])
-          const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldCreate, modelKey))
+          const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldCreate, modelKey))
           request.setBodyData(field)
           await request.execute()
           this.$message.success(`已创建 ${field.name}(${field.fieldKey})，进度 ${i + 1} / ${fields.length}`)
@@ -109,7 +109,7 @@ export class MilestoneInfoDialog extends CustomDialog {
     dialog.content = `确定要移除 "${this.milestone.tagName}" 吗？`
     dialog.show(async () => {
       const request = MyAxios(
-        new CommonAPI(GeneralDataApis.ModelMilestoneDelete, this.milestone.modelKey, this.milestone.tagName)
+        new CommonAPI(ModelMilestoneApis.ModelMilestoneDelete, this.milestone.modelKey, this.milestone.tagName)
       )
       await request.execute()
       this.$message.success('移除成功')

@@ -1,6 +1,6 @@
 import { DataModelModel } from '@fangcha/datawich-service/lib/common/models'
 import { Component, ViewController } from '@fangcha/vue'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { NotificationCenter } from 'notification-center-js'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
@@ -64,14 +64,14 @@ export class DataModelManageView extends ViewController {
     })
 
     this.execHandler(async () => {
-      await MyAxios(new CommonAPI(GeneralDataApis.DataModelAccessibleCheck, this.modelKey)).quickSend()
+      await MyAxios(new CommonAPI(DataModelApis.DataModelAccessibleCheck, this.modelKey)).quickSend()
       this.reloadModelInfo()
     })
   }
 
   async reloadModelInfo() {
     await this.execHandler(async () => {
-      this.dataModel = await MyAxios(new CommonAPI(GeneralDataApis.DataModelInfoGet, this.modelKey)).quickSend()
+      this.dataModel = await MyAxios(new CommonAPI(DataModelApis.DataModelInfoGet, this.modelKey)).quickSend()
     })
   }
 }

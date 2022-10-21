@@ -1,6 +1,6 @@
 import { Component, JsonImportDialog, MultipleLinesInputDialog } from '@fangcha/vue'
 import { ModelMilestoneModel } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { ModelMilestoneApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { MilestoneInfoDialog } from '../widgets/MilestoneInfoDialog'
 import * as moment from 'moment'
 import { NotificationCenter } from 'notification-center-js'
@@ -46,7 +46,7 @@ export class ModelMilestonePanel extends ModelFragmentBase {
   }
 
   async reloadMilestoneList() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.ModelMilestoneListGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(ModelMilestoneApis.ModelMilestoneListGet, this.modelKey))
     this.milestoneList = (await request.quickSend()) as ModelMilestoneModel[]
   }
 
@@ -81,7 +81,7 @@ export class ModelMilestonePanel extends ModelFragmentBase {
     ])
     dialog.title = '创建版本'
     dialog.show(async (params: any) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelMilestoneCreate, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelMilestoneApis.ModelMilestoneCreate, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('创建成功')
@@ -92,7 +92,7 @@ export class ModelMilestonePanel extends ModelFragmentBase {
   async onImportMilestone() {
     const dialog = JsonImportDialog.dialog()
     dialog.show(async (params) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelMilestoneImport, this.modelKey))
+      const request = MyAxios(new CommonAPI(ModelMilestoneApis.ModelMilestoneImport, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('导入成功')

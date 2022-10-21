@@ -2,13 +2,13 @@ import { Component } from 'vue-property-decorator'
 import { TypicalDialog, TypicalDialogView } from '@fangcha/vue'
 import {
   DataModelModel,
-  LinkMapperInfo,
   FieldLinkModel,
   inlineFieldDefaultName,
+  LinkMapperInfo,
   ModelFieldModel,
 } from '@fangcha/datawich-service/lib/common/models'
 import { SelectOption } from '@fangcha/tools'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis, ModelFieldApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 
@@ -192,7 +192,7 @@ export default class FieldLinkDialog extends TypicalDialog {
       this.referenceInfo.fieldLinkMap = {}
       return
     }
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelVisibleFieldListGet, this.data.refModel))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelVisibleFieldListGet, this.data.refModel))
     const fields = (await request.quickSend()) as ModelFieldModel[]
     this.referenceInfo.refFields = fields
     this.referenceInfo.fieldLinkMap = {}
@@ -220,7 +220,7 @@ export default class FieldLinkDialog extends TypicalDialog {
   }
 
   async loadModelFields() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelFieldListGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldListGet, this.modelKey))
     const items = (await request.quickSend()) as ModelFieldModel[]
     this.fieldMap = items.reduce((result, cur) => {
       result[cur.fieldKey] = cur
@@ -235,7 +235,7 @@ export default class FieldLinkDialog extends TypicalDialog {
   }
 
   async loadOpenModels() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataOpenModelListGet))
+    const request = MyAxios(new CommonAPI(DataModelApis.DataOpenModelListGet))
     const openModels = (await request.quickSend()) as DataModelModel[]
     this.referenceInfo.openModelOptions = openModels
       .filter((model) => model.modelKey !== this.modelKey)

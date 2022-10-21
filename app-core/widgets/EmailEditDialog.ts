@@ -1,6 +1,6 @@
 import { Component } from 'vue-property-decorator'
-import { TypicalDialog, TypicalDialogView, HtmlDisplayPanel, StringListPanel } from '@fangcha/vue'
-import { DataAppApis, GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { HtmlDisplayPanel, StringListPanel, TypicalDialog, TypicalDialogView } from '@fangcha/vue'
+import { DataAppApis, DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { EmailEntityModel, ModelNotifyTemplateModel } from '@fangcha/datawich-service/lib/common/models'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
@@ -83,7 +83,7 @@ export class EmailEditDialog extends TypicalDialog {
 
   async loadData() {
     if (!this.forPreview) {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelNotifyTemplateGet, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.DataModelNotifyTemplateGet, this.modelKey))
       const template = (await request.quickSend()) as ModelNotifyTemplateModel
       if (template.emailEntityStr) {
         this.emailEntity = JSON.parse(template.emailEntityStr) as EmailEntityModel

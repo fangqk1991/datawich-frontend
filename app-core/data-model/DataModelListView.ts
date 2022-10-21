@@ -9,7 +9,7 @@ import {
   ViewController,
 } from '@fangcha/vue'
 import { DataModelModel, ModelFullMetadata, ModelType } from '@fangcha/datawich-service/lib/common/models'
-import { DataAppApis, GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataAppApis, DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { SelectOption } from '@fangcha/tools'
 import { AppTask, AppTaskQueue } from 'fc-queue'
 import { MyAxios } from '@fangcha/vue/basic'
@@ -131,7 +131,7 @@ export class DataModelListView extends ViewController implements FragmentProtoco
           ...retainParams,
           ...this.filterParams,
         }
-        const request = MyAxios(GeneralDataApis.DataModelListGet)
+        const request = MyAxios(DataModelApis.DataModelListGet)
         request.setQueryParams(params)
         const pageData = (await request.quickSend()) as any
         this.currentItems = pageData.elements
@@ -179,7 +179,7 @@ export class DataModelListView extends ViewController implements FragmentProtoco
     dialog.content = `确定要删除 "${feed.name}" 吗？`
     dialog.show(async () => {
       await this.execHandler(async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelDelete, feed.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.DataModelDelete, feed.modelKey))
         await request.execute()
         this.reloadData()
       })
@@ -193,7 +193,7 @@ export class DataModelListView extends ViewController implements FragmentProtoco
   onClickCreate() {
     const dialog = DataModelDialog.createModelDialog()
     dialog.show(async (params: DataModelModel) => {
-      const request = MyAxios(GeneralDataApis.DataModelCreate)
+      const request = MyAxios(DataModelApis.DataModelCreate)
       request.setBodyData(params)
       const dataModel = (await request.quickSend()) as DataModelModel
       this.$message.success('创建成功')
@@ -204,7 +204,7 @@ export class DataModelListView extends ViewController implements FragmentProtoco
   onImportModel() {
     const dialog = JsonImportDialog.dialog()
     dialog.show(async (metadata: ModelFullMetadata) => {
-      const request = MyAxios(GeneralDataApis.DataModelImport)
+      const request = MyAxios(DataModelApis.DataModelImport)
       request.setBodyData(metadata)
       const dataModel = (await request.quickSend()) as DataModelModel
       this.$message.success('导入成功')
@@ -216,7 +216,7 @@ export class DataModelListView extends ViewController implements FragmentProtoco
     this.reloadData()
     if (dataModel.modelType === ModelType.DatahubModel) {
       await LoadingView.loadHandler('正在载入数据，请稍等...', async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.ModelDatahubRecordsLoad, dataModel.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.ModelDatahubRecordsLoad, dataModel.modelKey))
         await request.execute()
       })
       this.$message.success('载入成功，您可以进入模型设置中自行绑定所需字段')
@@ -237,7 +237,7 @@ export class DataModelListView extends ViewController implements FragmentProtoco
       taskQueue.addTask(
         new AppTask(async () => {
           this.$set(this.countData, dataModel.modelKey, null)
-          const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelSummaryInfoGet, dataModel.modelKey), {
+          const request = MyAxios(new CommonAPI(DataModelApis.DataModelSummaryInfoGet, dataModel.modelKey), {
             mute: true,
           })
           await request.quickSend().then(({ count }) => {

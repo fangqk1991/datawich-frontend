@@ -15,7 +15,7 @@ import {
   ViewController,
 } from '@fangcha/vue'
 import { MessageBox } from 'element-ui'
-import { DataAppApis, ModelClientApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataAppApis, DatawichClientApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { CheckOption } from '@fangcha/tools'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
@@ -84,7 +84,7 @@ export class ModelClientListView extends ViewController implements FragmentProto
           ...retainParams,
           ...this.filterParams,
         }
-        const request = MyAxios(ModelClientApis.ModelClientListGet)
+        const request = MyAxios(DatawichClientApis.ModelClientListGet)
         request.setQueryParams(params)
         return request.quickSend()
       },
@@ -108,7 +108,7 @@ export class ModelClientListView extends ViewController implements FragmentProto
   onEditItem(feed: ModelClientModel) {
     const dialog = ModelClientDialog.editAppDialog(feed)
     dialog.show(async (params: any) => {
-      const request = MyAxios(new CommonAPI(ModelClientApis.ModelClientUpdate, feed.appid))
+      const request = MyAxios(new CommonAPI(DatawichClientApis.ModelClientUpdate, feed.appid))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('更新成功')
@@ -121,7 +121,7 @@ export class ModelClientListView extends ViewController implements FragmentProto
     dialog.title = '删除应用'
     dialog.content = `确定要删除 "${feed.name}" 吗？`
     dialog.show(async () => {
-      const request = MyAxios(new CommonAPI(ModelClientApis.ModelClientDelete, feed.appid))
+      const request = MyAxios(new CommonAPI(DatawichClientApis.ModelClientDelete, feed.appid))
       await request.execute()
       this.$message.success('删除成功')
       this.tableView.reloadData()
@@ -129,7 +129,7 @@ export class ModelClientListView extends ViewController implements FragmentProto
   }
 
   async onEditItemAuth(feed: ModelClientModel) {
-    const request = MyAxios(new CommonAPI(ModelClientApis.ClientAuthModelListGet, feed.appid))
+    const request = MyAxios(new CommonAPI(DatawichClientApis.ClientAuthModelListGet, feed.appid))
     const authItems = (await request.quickSend()) as ClientAuthModel[]
     const authData = authItems.reduce((result, cur) => {
       result[cur.modelKey] = true
@@ -160,7 +160,7 @@ export class ModelClientListView extends ViewController implements FragmentProto
           })
         }
       }
-      const request = MyAxios(new CommonAPI(ModelClientApis.ClientAuthModelListUpdate, feed.appid))
+      const request = MyAxios(new CommonAPI(DatawichClientApis.ClientAuthModelListUpdate, feed.appid))
       request.setBodyData(paramsList)
       await request.execute()
       this.$message.success('调整成功')
@@ -170,7 +170,7 @@ export class ModelClientListView extends ViewController implements FragmentProto
   onClickCreate() {
     const dialog = ModelClientDialog.createAppDialog()
     dialog.show(async (params: any) => {
-      const request = MyAxios(ModelClientApis.ModelClientCreate)
+      const request = MyAxios(DatawichClientApis.ModelClientCreate)
       request.setBodyData(params)
       const data = (await request.quickSend()) as ModelClientModel
       const tableView = this.$refs.tableView as MyTableView

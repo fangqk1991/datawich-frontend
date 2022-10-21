@@ -1,11 +1,11 @@
 import { Component, ConfirmDialog, MyTableView, Prop, TableViewProtocol, ViewController } from '@fangcha/vue'
 import { FieldGroupModel, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
 import FieldGroupDialog from './FieldGroupDialog'
 import { NotificationCenter } from 'notification-center-js'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { DatawichEventKeys } from '../../src'
+import { DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 
 @Component({
   components: {
@@ -40,7 +40,7 @@ export class FieldGroupTable extends ViewController {
   get delegate(): TableViewProtocol {
     return {
       loadData: async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.ModelFieldGroupListGet, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.ModelFieldGroupListGet, this.modelKey))
         const items = (await request.quickSend()) as FieldGroupModel[]
         return {
           totalSize: items.length,
@@ -59,7 +59,7 @@ export class FieldGroupTable extends ViewController {
   onClickCreateItem() {
     const dialog = FieldGroupDialog.createGroupDialog()
     dialog.show(async (params: ModelFieldModel) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelFieldGroupCreate, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.ModelFieldGroupCreate, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('创建成功')
@@ -71,7 +71,7 @@ export class FieldGroupTable extends ViewController {
   onEditItem(feed: FieldGroupModel) {
     const dialog = FieldGroupDialog.editGroupDialog(feed)
     dialog.show(async (params: ModelFieldModel) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelFieldGroupUpdate, this.modelKey, feed.groupKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.ModelFieldGroupUpdate, this.modelKey, feed.groupKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('更新成功')
@@ -85,7 +85,7 @@ export class FieldGroupTable extends ViewController {
     dialog.title = '删除关联'
     dialog.content = `确定要删除此字段组吗？`
     dialog.show(async () => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelFieldGroupDelete, feed.modelKey, feed.groupKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.ModelFieldGroupDelete, feed.modelKey, feed.groupKey))
       await request.execute()
       this.$message.success('删除成功')
       this.reloadData()

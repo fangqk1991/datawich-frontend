@@ -1,6 +1,6 @@
 import { DataRecordEventDescriptor, ModelNotifyTemplateModel } from '@fangcha/datawich-service/lib/common/models'
 import { Component, MySwitch, SimpleInputDialog } from '@fangcha/vue'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { NotificationCenter } from 'notification-center-js'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
@@ -98,7 +98,7 @@ export class ModelFeatureFragment extends ModelFragmentBase {
   viewDidLoad() {}
 
   async loadTemplateInfo() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelNotifyTemplateGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(DataModelApis.DataModelNotifyTemplateGet, this.modelKey))
     this.notifyTemplate = await request.quickSend()
   }
 
@@ -108,7 +108,7 @@ export class ModelFeatureFragment extends ModelFragmentBase {
       this.dataModel.isBroadcast = 0
       return
     }
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelUpdate, this.modelKey))
+    const request = MyAxios(new CommonAPI(DataModelApis.DataModelUpdate, this.modelKey))
     request.setBodyData({ isBroadcast: this.dataModel.isBroadcast })
     request
       .execute()
@@ -122,7 +122,7 @@ export class ModelFeatureFragment extends ModelFragmentBase {
   }
 
   async onBroadcastEventChanged() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelUpdate, this.modelKey))
+    const request = MyAxios(new CommonAPI(DataModelApis.DataModelUpdate, this.modelKey))
     const dataModel = this.dataModel
     request.setBodyData({
       extrasData: {
@@ -150,7 +150,7 @@ export class ModelFeatureFragment extends ModelFragmentBase {
     dialog.content = this.notifyTemplate!.content
     dialog.show(async (content: string) => {
       await this.execHandler(async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelNotifyTemplateUpdate, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.DataModelNotifyTemplateUpdate, this.modelKey))
         request.setBodyData({ content: content })
         await request.execute()
         this.$message.success('更新成功')
@@ -165,7 +165,7 @@ export class ModelFeatureFragment extends ModelFragmentBase {
     dialog.content = this.dataModel.wechatbotKey
     dialog.show(async (wechatbotKey: string) => {
       await this.execHandler(async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelUpdate, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.DataModelUpdate, this.modelKey))
         request.setBodyData({ wechatbotKey: wechatbotKey })
         await request.execute()
         this.$message.success('更新成功')
@@ -175,7 +175,7 @@ export class ModelFeatureFragment extends ModelFragmentBase {
   }
 
   onUseEmailChanged() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelUpdate, this.modelKey))
+    const request = MyAxios(new CommonAPI(DataModelApis.DataModelUpdate, this.modelKey))
     request.setBodyData({ useEmail: this.dataModel.useEmail })
     request
       .execute()
@@ -192,7 +192,7 @@ export class ModelFeatureFragment extends ModelFragmentBase {
     const dialog = EmailEditDialog.dialogForEdit(this.modelKey)
     dialog.show(async (emailEntity) => {
       await this.execHandler(async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelNotifyTemplateUpdate, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.DataModelNotifyTemplateUpdate, this.modelKey))
         request.setBodyData({ emailEntityStr: JSON.stringify(emailEntity) })
         await request.execute()
         this.$message.success('更新成功')

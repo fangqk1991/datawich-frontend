@@ -8,7 +8,12 @@ import {
   TableViewProtocol,
   ViewController,
 } from '@fangcha/vue'
-import { CommonProfileApis, DataAppApis, GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import {
+  CommonProfileApis,
+  DataAppApis,
+  DataModelApis,
+  ModelFieldApis,
+} from '@fangcha/datawich-service/lib/common/web-api'
 import {
   checkCalculableField,
   cleanDataByModelFields,
@@ -379,7 +384,7 @@ export default class DataDisplayView extends ViewController {
 
   async loadModelInfo() {
     await this.execHandler(async () => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelInfoGet, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.DataModelInfoGet, this.modelKey))
       this.dataModel = (await request.quickSend()) as DataModelModel
     })
     // 对自定义的视图进行强制跳转
@@ -416,7 +421,7 @@ export default class DataDisplayView extends ViewController {
 
   async loadFieldsData() {
     const allFields: ModelFieldModel[] = []
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelVisibleFieldListGet, this.modelKey))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelVisibleFieldListGet, this.modelKey))
     this.mainFields = (await request.quickSend()) as ModelFieldModel[]
     for (const field of this.mainFields) {
       allFields.push(field)

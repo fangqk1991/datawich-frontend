@@ -1,7 +1,7 @@
 import { Component } from 'vue-property-decorator'
 import { TypicalDialog, TypicalDialogView } from '@fangcha/vue'
 import { DataModelModel, FieldType, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis, ModelFieldApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { SelectOption } from '@fangcha/tools'
 import EnumFieldExtension from './EnumFieldExtension'
 import { MyAxios } from '@fangcha/vue/basic'
@@ -96,7 +96,7 @@ export default class ShadowFieldDialog extends TypicalDialog {
   }
 
   async loadContentModels() {
-    const request = MyAxios(GeneralDataApis.DataContentModelListGet)
+    const request = MyAxios(DataModelApis.DataContentModelListGet)
     const contentModels = (await request.quickSend()) as DataModelModel[]
     this.contentModelOptions = contentModels.map((model) => {
       return {
@@ -117,7 +117,7 @@ export default class ShadowFieldDialog extends TypicalDialog {
       this.fieldMap = {}
       return
     }
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelVisibleFieldListGet, this.matrixField.modelKey))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelVisibleFieldListGet, this.matrixField.modelKey))
     const fields = (await request.quickSend()) as ModelFieldModel[]
     const usefulFields = fields.filter(
       (field) => field.fieldType === FieldType.Enum || field.fieldType === FieldType.TextEnum

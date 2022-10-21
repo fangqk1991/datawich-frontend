@@ -1,5 +1,5 @@
 import { Component, ConfirmDialog, MySwitch, MyTableView, Prop, TableViewProtocol, ViewController } from '@fangcha/vue'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import FieldLinkDialog from './FieldLinkDialog'
 import { FieldLinkModel, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
 import { MyAxios } from '@fangcha/vue/basic'
@@ -64,7 +64,7 @@ export class FieldLinkTable extends ViewController {
   get delegate(): TableViewProtocol {
     return {
       loadData: async () => {
-        const request = MyAxios(new CommonAPI(GeneralDataApis.ModelHoldingLinkListGet, this.modelKey))
+        const request = MyAxios(new CommonAPI(DataModelApis.ModelHoldingLinkListGet, this.modelKey))
         const items = (await request.quickSend()) as ModelFieldModel[]
         return {
           totalSize: items.length,
@@ -88,7 +88,7 @@ export class FieldLinkTable extends ViewController {
     const dialog = FieldLinkDialog.createLinkDialog()
     dialog.modelKey = this.modelKey
     dialog.show(async (params: any) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelHoldingLinkCreate, this.modelKey))
+      const request = MyAxios(new CommonAPI(DataModelApis.ModelHoldingLinkCreate, this.modelKey))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('创建成功')
@@ -100,7 +100,7 @@ export class FieldLinkTable extends ViewController {
     const dialog = FieldLinkDialog.editLinkDialog(feed)
     dialog.modelKey = this.modelKey
     dialog.show(async (params: ModelFieldModel) => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelHoldingLinkUpdate, this.modelKey, feed.linkId))
+      const request = MyAxios(new CommonAPI(DataModelApis.ModelHoldingLinkUpdate, this.modelKey, feed.linkId))
       request.setBodyData(params)
       await request.execute()
       this.$message.success('更新成功')
@@ -113,7 +113,7 @@ export class FieldLinkTable extends ViewController {
     dialog.title = '删除关联'
     dialog.content = `确定要删除此关联吗？`
     dialog.show(async () => {
-      const request = MyAxios(new CommonAPI(GeneralDataApis.ModelHoldingLinkDelete, feed.modelKey, feed.linkId))
+      const request = MyAxios(new CommonAPI(DataModelApis.ModelHoldingLinkDelete, feed.modelKey, feed.linkId))
       await request.execute()
       this.$message.success('删除成功')
       this.reloadData()
@@ -121,7 +121,7 @@ export class FieldLinkTable extends ViewController {
   }
 
   async onIsInlineChanged(feed: FieldLinkModel) {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.ModelHoldingLinkUpdate, this.modelKey, feed.linkId))
+    const request = MyAxios(new CommonAPI(DataModelApis.ModelHoldingLinkUpdate, this.modelKey, feed.linkId))
     request.setBodyData({
       isInline: feed.isInline,
     })
@@ -131,7 +131,7 @@ export class FieldLinkTable extends ViewController {
   }
 
   async onIsForeignKeyChanged(feed: FieldLinkModel) {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.ModelHoldingLinkUpdate, this.modelKey, feed.linkId))
+    const request = MyAxios(new CommonAPI(DataModelApis.ModelHoldingLinkUpdate, this.modelKey, feed.linkId))
     request.setBodyData({
       isForeignKey: feed.isForeignKey,
     })

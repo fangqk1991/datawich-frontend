@@ -1,7 +1,7 @@
 import { Component, Prop, ViewController } from '@fangcha/vue'
 import { DataModelModel, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
 import { SelectOption } from '@fangcha/tools'
-import { GeneralDataApis } from '@fangcha/datawich-service/lib/common/web-api'
+import { DataModelApis, ModelFieldApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 
@@ -70,7 +70,7 @@ export default class DerivativeActionExtension extends ViewController {
       this.derivativeInfo.toFieldKey = ''
       return
     }
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataModelVisibleFieldListGet, this.derivativeInfo.toModelKey))
+    const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelVisibleFieldListGet, this.derivativeInfo.toModelKey))
     const fields = (await request.quickSend()) as ModelFieldModel[]
     const uniqueFields = fields.filter((field) => field.isUnique)
     this.openFieldOptions = uniqueFields.map((field) => {
@@ -82,7 +82,7 @@ export default class DerivativeActionExtension extends ViewController {
   }
 
   async loadOpenModels() {
-    const request = MyAxios(new CommonAPI(GeneralDataApis.DataOpenModelListGet))
+    const request = MyAxios(new CommonAPI(DataModelApis.DataOpenModelListGet))
     const openModels = (await request.quickSend()) as DataModelModel[]
     this.openModelOptions = openModels.map((model) => {
       return {

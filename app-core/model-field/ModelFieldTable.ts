@@ -7,6 +7,7 @@ import {
   MySwitch,
   MyTableView,
   Prop,
+  SimpleInputDialog,
   SimplePickerDialog,
   TableViewProtocol,
   TextPreviewDialog,
@@ -49,6 +50,7 @@ import { DatawichEventKeys, getRouterToModel, LogicExpressionDialog } from '../.
           <el-button type="success" size="mini" @click="onManageSystemFields">管理系统字段</el-button>
           <el-button type="info" size="mini" @click="onEditBroadcastField">选择广播字段</el-button>
           <el-button type="success" size="mini" @click="onImportField">导入 JSON</el-button>
+          <el-button v-if="$devEgg()" type="danger" size="mini" @click="onRebuildFields">重建字段</el-button>
         </div>
       </div>
       <el-table-column prop="fieldKey" label="字段 Key">
@@ -304,6 +306,20 @@ export class ModelFieldTable extends ViewController {
       request.setBodyData(params)
       await request.execute()
       this.$message.success('创建成功')
+      this.reloadData()
+    })
+  }
+
+  onRebuildFields() {
+    const dialog = SimpleInputDialog.textInputDialog()
+    dialog.title = '根据原始数据表初始化字段'
+    dialog.show(async (rawTableName) => {
+      const request = MyAxios(new CommonAPI(ModelFieldApis.DataModelFieldsRebuild, this.modelKey))
+      request.setBodyData({
+        rawTableName: rawTableName,
+      })
+      await request.execute()
+      this.$message.success('重建成功')
       this.reloadData()
     })
   }

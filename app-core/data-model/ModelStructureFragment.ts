@@ -1,6 +1,5 @@
 import { Component } from '@fangcha/vue'
 import { ModelFieldTable } from '../model-field/ModelFieldTable'
-import { DatahubInfoPanel } from '../model-field/DatahubInfoPanel'
 import { FieldLinkTable } from '../model-field/FieldLinkTable'
 import { FieldGroupTable } from '../model-field/FieldGroupTable'
 import { ModelMilestonePanel } from './ModelMilestonePanel'
@@ -11,7 +10,6 @@ import { ModelFragmentBase } from './ModelFragmentBase'
     'model-field-table': ModelFieldTable,
     'field-link-table': FieldLinkTable,
     'field-group-table': FieldGroupTable,
-    'datahub-info-panel': DatahubInfoPanel,
     'model-milestone-panel': ModelMilestonePanel,
   },
   template: `

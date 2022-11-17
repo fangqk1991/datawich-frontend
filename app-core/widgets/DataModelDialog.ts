@@ -96,10 +96,6 @@ export class DataModelDialog extends TypicalDialog {
     isLibrary: 0,
     isDataExportable: 0,
     star: 0,
-    datahubLink: {
-      engineKey: '',
-      tableKey: '',
-    },
   }
   forEditing = false
 

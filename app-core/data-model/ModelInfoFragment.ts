@@ -18,9 +18,6 @@ import { DataModelDialog } from '../widgets/DataModelDialog'
         <a style="font-size: 70%" href="javascript:" class="text-danger" @click="onEmptyData">清空数据</a>
       </h3>
       <el-form label-position="left" label-width="120px">
-        <el-form-item class="card-form-item" label="模型类型">
-          {{ dataModel.modelType | describe_model_type }}
-        </el-form-item>
         <el-form-item class="card-form-item" label="模型 Key">
           {{ dataModel.modelKey }}
         </el-form-item>

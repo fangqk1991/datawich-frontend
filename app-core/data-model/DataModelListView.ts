@@ -3,12 +3,11 @@ import {
   ConfirmDialog,
   FragmentProtocol,
   JsonImportDialog,
-  LoadingView,
   MyTableView,
   TableViewProtocol,
   ViewController,
 } from '@fangcha/vue'
-import { DataModelModel, ModelFullMetadata, ModelType } from '@fangcha/datawich-service/lib/common/models'
+import { DataModelModel, ModelFullMetadata } from '@fangcha/datawich-service/lib/common/models'
 import { DataAppApis, DataModelApis } from '@fangcha/datawich-service/lib/common/web-api'
 import { SelectOption } from '@fangcha/tools'
 import { AppTask, AppTaskQueue } from 'fc-queue'
@@ -65,8 +64,6 @@ import { DataModelDialog } from '../widgets/DataModelDialog'
         </el-table-column>
         <el-table-column label="特殊属性">
           <template slot-scope="scope">
-            <el-tag v-if="scope.row.modelType === ModelType.ContentModel" size="mini">内容管理</el-tag>
-            <el-tag v-if="scope.row.modelType === ModelType.DatahubModel" size="mini">外部数据源</el-tag>
             <el-tag v-if="scope.row.isRetained" size="mini" type="danger">系统保留</el-tag>
             <el-tag v-if="scope.row.isLibrary" size="mini">可关联</el-tag>
             <el-tag v-for="name in scope.row.tagList" size="mini" type="danger">
@@ -103,7 +100,6 @@ import { DataModelDialog } from '../widgets/DataModelDialog'
   `,
 })
 export class DataModelListView extends ViewController implements FragmentProtocol {
-  ModelType = ModelType
   countData: { [modelKey: string]: number } = {}
   currentItems: DataModelModel[] = []
 
@@ -195,9 +191,9 @@ export class DataModelListView extends ViewController implements FragmentProtoco
     dialog.show(async (params: DataModelModel) => {
       const request = MyAxios(DataModelApis.DataModelCreate)
       request.setBodyData(params)
-      const dataModel = (await request.quickSend()) as DataModelModel
+      await request.quickSend()
       this.$message.success('创建成功')
-      this.onModelCreated(dataModel)
+      this.reloadData()
     })
   }
 
@@ -206,21 +202,10 @@ export class DataModelListView extends ViewController implements FragmentProtoco
     dialog.show(async (metadata: ModelFullMetadata) => {
       const request = MyAxios(DataModelApis.DataModelImport)
       request.setBodyData(metadata)
-      const dataModel = (await request.quickSend()) as DataModelModel
+      await request.quickSend()
       this.$message.success('导入成功')
-      this.onModelCreated(dataModel)
+      this.reloadData()
     })
-  }
-
-  public async onModelCreated(dataModel: DataModelModel) {
-    this.reloadData()
-    if (dataModel.modelType === ModelType.DatahubModel) {
-      await LoadingView.loadHandler('正在载入数据，请稍等...', async () => {
-        const request = MyAxios(new CommonAPI(DataModelApis.ModelDatahubRecordsLoad, dataModel.modelKey))
-        await request.execute()
-      })
-      this.$message.success('载入成功，您可以进入模型设置中自行绑定所需字段')
-    }
   }
 
   resetFilter(useQuery: boolean = false) {

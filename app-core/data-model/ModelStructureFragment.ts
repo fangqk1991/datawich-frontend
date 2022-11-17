@@ -1,4 +1,3 @@
-import { ModelType } from '@fangcha/datawich-service/lib/common/models'
 import { Component } from '@fangcha/vue'
 import { ModelFieldTable } from '../model-field/ModelFieldTable'
 import { DatahubInfoPanel } from '../model-field/DatahubInfoPanel'
@@ -21,7 +20,7 @@ import { ModelFragmentBase } from './ModelFragmentBase'
         <model-milestone-panel :data-model="dataModel" />
       </el-card>
       <el-card class="mt-4" shadow="never">
-        <model-field-table @loadWidgetsInfo="onLoadWidgetsInfo" ref="fieldTableView" :model-key="modelKey" :simple-mode="isDatahubModel" />
+        <model-field-table @loadWidgetsInfo="onLoadWidgetsInfo" ref="fieldTableView" :model-key="modelKey" />
       </el-card>
       <el-card class="mt-4" shadow="never">
         <field-group-table ref="fieldGroupTableView" :model-key="modelKey" />
@@ -29,17 +28,10 @@ import { ModelFragmentBase } from './ModelFragmentBase'
       <el-card class="mt-4" shadow="never">
         <field-link-table ref="linkTableView" :model-key="modelKey" />
       </el-card>
-      <el-card v-if="isDatahubModel" class="mt-4" shadow="never">
-        <datahub-info-panel :model-key="modelKey" />
-      </el-card>
     </div>
   `,
 })
 export class ModelStructureFragment extends ModelFragmentBase {
-  get isDatahubModel() {
-    return this.dataModel && this.dataModel.modelType === ModelType.DatahubModel
-  }
-
   async onLoadWidgetsInfo() {
     this.$nextTick(() => {
       {

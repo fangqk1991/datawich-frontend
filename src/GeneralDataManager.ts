@@ -5,7 +5,6 @@ import {
   describeAccessLevelDetail,
   DisplayScopeDescriptor,
   FieldTypeDescriptor,
-  ModelTypeDescriptor,
 } from '@fangcha/datawich-service/lib/common/models'
 import { _DatawichAttachmentOptions, AttachmentOptions } from './plugins/attachment/AttachmentOptions'
 import { FieldPluginCenter } from './core'
@@ -17,10 +16,6 @@ Vue.filter('describe_model_scope_type', function (val: any) {
 
 Vue.filter('describe_model_field_type', function (val: any) {
   return FieldTypeDescriptor.describe(val)
-})
-
-Vue.filter('describe_model_type', function (val: any) {
-  return ModelTypeDescriptor.describe(val)
 })
 
 Vue.filter('describe_model_access_level', function (val: any) {

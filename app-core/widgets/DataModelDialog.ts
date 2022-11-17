@@ -3,16 +3,9 @@ import { TypicalDialog, TypicalDialogView } from '@fangcha/vue'
 import {
   AccessLevel,
   AccessLevelDescriptor,
-  DatahubEngineModel,
-  DatahubTableModel,
   DataModelModel,
   ModelType,
-  ModelTypeDescriptor,
 } from '@fangcha/datawich-service/lib/common/models'
-import { DatahubApis } from '@fangcha/datawich-service/lib/common/web-api'
-import { SelectOption } from '@fangcha/tools'
-import { MyAxios } from '@fangcha/vue/basic'
-import { CommonAPI } from '@fangcha/app-request'
 
 @Component({
   components: {
@@ -21,47 +14,6 @@ import { CommonAPI } from '@fangcha/app-request'
   template: `
     <typical-dialog-view ref="my-dialog" :title="title" width="50%" :callback="callback">
     <el-form class="my-mini-form" size="mini" label-width="120px">
-      <el-form-item label="模型类型" :required="true">
-        <el-radio-group v-model="data.modelType" :disabled="forEditing && isDatahubModel">
-          <el-radio-button 
-            v-for="item in modelTypeOptions" 
-            :key="item.value" 
-            :label="item.value"
-            :disabled="item.disabled">
-            {{ item.label }}
-          </el-radio-button>
-        </el-radio-group>
-        <el-tooltip class="item" effect="dark" placement="top">
-          <span class="el-icon-question" />
-          <div slot="content">
-            「内容管理模型」通常由若干「用户」字段和「枚举」字段构成<br />
-            常规模型关联后，相关用户可以看到非本人添加的相关常规数据<br />
-          </div>
-        </el-tooltip>
-      </el-form-item>
-      <template v-if="isDatahubModel">
-        <el-form-item label="链接类型" :required="true">
-          <el-select v-model="data.datahubLink.engineKey" style="width: 100%;" :disabled="forEditing"
-                     @change="reloadDatahubTables">
-            <el-option
-              v-for="option in engineOptions"
-              :key="option.value"
-              :label="option.label"
-              :value="option.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="数据源" :required="true">
-          <el-select v-model="data.datahubLink.tableKey" style="width: 100%;" :disabled="forEditing">
-            <el-option
-              v-for="option in tableOptions"
-              :key="option.value"
-              :label="option.label"
-              :value="option.value"
-            />
-          </el-select>
-        </el-form-item>
-      </template>
       <el-form-item label="模型 Key" :required="true">
         <el-input v-model="data.modelKey" type="text" style="width: 160px;" :disabled="forEditing">
         </el-input>
@@ -130,7 +82,6 @@ import { CommonAPI } from '@fangcha/app-request'
   `,
 })
 export class DataModelDialog extends TypicalDialog {
-  modelTypeOptions: SelectOption[] = []
   accessLevelList = AccessLevelDescriptor.values
 
   data: DataModelModel | any = {
@@ -152,30 +103,11 @@ export class DataModelDialog extends TypicalDialog {
   }
   forEditing = false
 
-  engineOptions: SelectOption[] = []
-  tableOptions: SelectOption[] = []
-
   constructor() {
     super()
   }
 
-  viewDidLoad() {
-    this.reloadDatahubEngines()
-    const options = ModelTypeDescriptor.options()
-    options.forEach((option) => {
-      option['disabled'] =
-        option.value === ModelType.ContentModel || (this.forEditing && option.value === ModelType.DatahubModel)
-    })
-    this.modelTypeOptions = options
-  }
-
-  get isNormalModel() {
-    return this.data.modelType === ModelType.NormalModel
-  }
-
-  get isDatahubModel() {
-    return this.data.modelType === ModelType.DatahubModel
-  }
+  viewDidLoad() {}
 
   static createModelDialog() {
     const dialog = new DataModelDialog()
@@ -193,37 +125,5 @@ export class DataModelDialog extends TypicalDialog {
 
   onHandleResult() {
     return this.data
-  }
-
-  async reloadDatahubTables() {
-    if (!this.data.datahubLink.engineKey) {
-      return
-    }
-    const request = MyAxios(new CommonAPI(DatahubApis.DataEngineTableListGet, this.data.datahubLink.engineKey))
-    const tables = (await request.quickSend()) as DatahubTableModel[]
-    this.tableOptions = tables.map((table) => {
-      return {
-        label: table.tableKey,
-        value: table.tableKey,
-      }
-    })
-    if (tables.length > 0 && !this.data.datahubLink.tableKey) {
-      this.data.datahubLink.tableKey = tables[0].tableKey
-    }
-  }
-
-  async reloadDatahubEngines() {
-    const request = MyAxios(DatahubApis.DataEngineListGet)
-    const engines = (await request.quickSend()) as DatahubEngineModel[]
-    this.engineOptions = engines.map((engine) => {
-      return {
-        label: engine.name,
-        value: engine.engineKey,
-      }
-    })
-    if (engines.length > 0 && !this.data.datahubLink.engineKey) {
-      this.data.datahubLink.engineKey = engines[0].engineKey
-    }
-    this.reloadDatahubTables()
   }
 }

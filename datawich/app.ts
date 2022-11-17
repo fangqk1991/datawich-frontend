@@ -24,6 +24,11 @@ const app = new AdminApp({
   appName: 'Datawich 🍰',
   useRemoteLocale: false,
   plugins: [OssFrontendService],
+  style: {
+    appHeader: {
+      background: '#DD73A4',
+    },
+  },
   sidebarNodes: [
     {
       uid: 'data-apps',

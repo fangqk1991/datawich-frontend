@@ -92,7 +92,7 @@ export class DataModelDialog extends TypicalDialog {
     name: '',
     description: '',
     remarks: '',
-    isOnline: 0,
+    isOnline: 1,
     isLibrary: 0,
     isDataExportable: 0,
     star: 0,

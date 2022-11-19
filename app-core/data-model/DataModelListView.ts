@@ -2,8 +2,8 @@ import {
   Component,
   ConfirmDialog,
   FragmentProtocol,
+  GridView,
   JsonImportDialog,
-  MyTableView,
   TableViewProtocol,
   ViewController,
 } from '@fangcha/vue'
@@ -15,10 +15,12 @@ import { MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { getRouterToDataApp } from '../../src'
 import { DataModelDialog } from '../widgets/DataModelDialog'
+import { DataModelCard } from './DataModelCard'
 
 @Component({
   components: {
-    'my-table-view': MyTableView,
+    'grid-view': GridView,
+    'data-model-card': DataModelCard,
   },
   template: `
     <div>
@@ -40,62 +42,9 @@ import { DataModelDialog } from '../widgets/DataModelDialog'
           <el-button type="success" size="mini" @click="onImportModel">导入模型</el-button>
         </el-form-item>
       </el-form>
-      <my-table-view ref="tableView" :delegate="delegate">
-        <div slot="header" class="mb-3">
-          共 {{ getTotalCount() }} 个模型
-        </div>
-        <el-table-column prop="modelKey" label="模型 Key" />
-        <el-table-column prop="name" label="模型名称">
-          <template slot-scope="scope">
-            <span>{{ scope.row.name }}</span>
-            <el-tooltip v-if="scope.row.star" class="item" effect="dark" placement="bottom">
-              <span class="el-icon-star-on theme-color" />
-              <div slot="content">
-                该模型被用于数据分析
-              </div>
-            </el-tooltip>
-          </template>
-        </el-table-column>
-        <el-table-column prop="isOnline" label="发布状态">
-          <template slot-scope="scope">
-            <span v-if="scope.row.isOnline" style="color: #67C23A">已发布 <i class="el-icon-success"/></span>
-            <span v-if="!scope.row.isOnline" style="color: #F56C6C">未发布 <i class="el-icon-error"/></span>
-          </template>
-        </el-table-column>
-        <el-table-column label="特殊属性">
-          <template slot-scope="scope">
-            <el-tag v-if="scope.row.isRetained" size="mini" type="danger">系统保留</el-tag>
-            <el-tag v-if="scope.row.isLibrary" size="mini">可关联</el-tag>
-            <el-tag v-for="name in scope.row.tagList" size="mini" type="danger">
-              {{ name }}
-            </el-tag>
-          </template>
-        </el-table-column>
-        <el-table-column prop="author" label="维护者" />
-        <el-table-column label="记录数">
-          <template slot-scope="scope">
-            <template v-if="countData[scope.row.modelKey] === null">
-              加载中……
-            </template>
-            <template v-else-if="countData[scope.row.modelKey] !== undefined">
-              {{ countData[scope.row.modelKey] }}
-            </template>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <router-link :to="{ name: 'DataModelManageView', params: { modelKey: scope.row.modelKey } }">
-              模型设置
-            </router-link>
-            |
-            <router-link :to="routeToDataApp(scope.row)">
-              查看应用
-            </router-link>
-            |
-            <a href="javascript:" @click="onDeleteItem(scope.row)">删除</a>
-          </template>
-        </el-table-column>
-      </my-table-view>
+      <grid-view ref="tableView" :delegate="delegate">
+        <data-model-card slot-scope="scope" :data="scope.data" :count="countData[scope.data.modelKey]" class="mr-2" />
+      </grid-view>
     </div>
   `,
 })
@@ -114,7 +63,7 @@ export class DataModelListView extends ViewController implements FragmentProtoco
   filterParams = this.initFilterParams(true)
 
   tableView() {
-    return this.$refs.tableView as MyTableView
+    return this.$refs.tableView as GridView
   }
   get delegate(): TableViewProtocol {
     return {

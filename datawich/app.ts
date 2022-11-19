@@ -23,6 +23,7 @@ OssFrontendService.init({
 const app = new AdminApp({
   appName: 'Datawich 🍰',
   useRemoteLocale: false,
+  homeView: DataAppListView,
   plugins: [OssFrontendService],
   style: {
     appHeader: {

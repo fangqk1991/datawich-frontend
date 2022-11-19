@@ -31,7 +31,7 @@ import {
       <el-form-item label="备注" :required="false">
         <el-input v-model="data.remarks" type="text" style="width: 160px;"></el-input>
       </el-form-item>
-      <el-form-item v-if="$app.isAdministrator()" label="是否可导出" class="admin-only" :required="true">
+      <el-form-item label="是否可导出" :required="true">
         <el-radio-group v-model="data.isDataExportable">
           <el-radio-button :key="1" :label="1">Yes</el-radio-button>
           <el-radio-button :key="0" :label="0">No</el-radio-button>

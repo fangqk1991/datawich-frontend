@@ -55,29 +55,24 @@ const app = new AdminApp({
           path: '/v2/data-model',
         },
         {
-          titleEn: '用户组管理',
-          titleZh: '用户组管理',
-          path: '/v1/user-group',
-        },
-        {
           titleEn: 'API 应用管理',
           titleZh: 'API 应用管理',
           path: '/v1/model-client',
         },
       ],
     },
-    {
-      titleEn: '相关组件',
-      titleZh: '相关组件',
-      icon: 'el-icon-lock',
-      links: [
-        {
-          titleEn: '逻辑表达式',
-          titleZh: '逻辑表达式',
-          path: '/v0/component/logic-expression',
-        },
-      ],
-    },
+    // {
+    //   titleEn: '相关组件',
+    //   titleZh: '相关组件',
+    //   icon: 'el-icon-lock',
+    //   links: [
+    //     {
+    //       titleEn: '逻辑表达式',
+    //       titleZh: '逻辑表达式',
+    //       path: '/v0/component/logic-expression',
+    //     },
+    //   ],
+    // },
   ],
   routes: [
     {

@@ -42,7 +42,7 @@ import { DataModelDialog } from '../widgets/DataModelDialog'
             <pre class="my-pre">{{ dataModel.description }}</pre>
           </div>
         </el-form-item>
-        <el-form-item v-if="$app.isAdministrator()" class="card-form-item admin-only" label="是否可导出">
+        <el-form-item class="card-form-item" label="是否可导出">
           <span v-if="dataModel.isDataExportable" style="color: #67C23A">Yes <i class="el-icon-success"/></span>
           <span v-if="!dataModel.isDataExportable" style="color: #F56C6C">No <i class="el-icon-error"/></span>
         </el-form-item>

@@ -1,6 +1,6 @@
 {
   "name": "@fangcha/datawich-frontend",
-  "version": "0.13.0",
+  "version": "0.14.0",
   "main": "src/index.ts",
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
@@ -21,7 +21,7 @@
     "@fangcha/general-group": "^0.2.0",
     "@fangcha/oss-service": "^0.6.0",
     "@fangcha/tools": "^1.22.0",
-    "@fangcha/vue": "^0.59.0",
+    "@fangcha/vue": "^0.59.1",
     "@fangcha/webpack": "^0.9.1",
     "@types/assert": "^1.5.6",
     "@types/mocha": "^10.0.0",

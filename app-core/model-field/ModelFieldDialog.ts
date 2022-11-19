@@ -91,7 +91,7 @@ import { I18nCode } from '@fangcha/tools'
           ~
           <el-input v-model="data.dateRange.ceil" type="text" placeholder="日期上限" style="width: 120px;"> </el-input>
         </el-form-item>
-        <el-form-item class="admin-only" label="正则约束">
+        <el-form-item label="正则约束">
           <el-input v-model="data.extrasData.matchRegex" type="text" style="width: 200px;">
           </el-input>
         </el-form-item>

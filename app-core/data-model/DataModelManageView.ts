@@ -34,7 +34,7 @@ import { DatawichEventKeys } from '../../src'
         <el-tab-pane name="fragment-access-management" label="访问管理">
           <model-access-fragment :data-model="dataModel" />
         </el-tab-pane>
-        <el-tab-pane name="fragment-model-feature" label="功能管理">
+        <el-tab-pane v-if="false" name="fragment-model-feature" label="功能管理">
           <model-feature-fragment :data-model="dataModel" />
         </el-tab-pane>
       </el-tabs>

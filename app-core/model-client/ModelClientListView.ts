@@ -8,6 +8,7 @@ import {
   Component,
   ConfirmDialog,
   FragmentProtocol,
+  GridView,
   MultiplePickerDialog,
   MySelect,
   MyTableView,
@@ -24,7 +25,7 @@ import { ModelClientDialog } from './ModelClientDialog'
 @Component({
   components: {
     'my-select': MySelect,
-    'my-table-view': MyTableView,
+    'grid-view': GridView,
   },
   template: `
     <div v-loading="isLoading">
@@ -47,19 +48,20 @@ import { ModelClientDialog } from './ModelClientDialog'
       <div class="mb-3">
         <el-button type="primary" size="mini" @click="onClickCreate">创建应用</el-button>
       </div>
-      <my-table-view ref="tableView" :delegate="delegate">
-        <el-table-column prop="appid" label="应用 ID" />
-        <el-table-column prop="name" label="应用名称" />
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <a href="javascript:" @click="onEditItem(scope.row)">修改</a>
-            |
-            <a href="javascript:" @click="onEditItemAuth(scope.row)">授权模型</a>
-            |
-            <a href="javascript:" @click="onDeleteItem(scope.row)">删除</a>
-          </template>
-        </el-table-column>
-      </my-table-view>
+      <grid-view ref="tableView" :delegate="delegate">
+        <div slot-scope="scope" class="fc-card" style="width: 250px; ">
+          <ul class="fc-clean-ul">
+            <li style="font-size: 120%;">{{ scope.data.name }} ({{ scope.data.appid }})</li>
+            <li>
+              <a href="javascript:" @click="onEditItem(scope.data)">修改</a>
+              |
+              <a href="javascript:" @click="onEditItemAuth(scope.data)">授权模型</a>
+              |
+              <a href="javascript:" @click="onDeleteItem(scope.data)">删除</a>
+            </li>
+          </ul>
+        </div>
+      </grid-view>
     </div>
   `,
 })

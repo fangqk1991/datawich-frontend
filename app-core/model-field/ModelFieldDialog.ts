@@ -34,7 +34,7 @@ import { I18nCode } from '@fangcha/tools'
           </el-radio-group>
         </el-form-item>
         <el-form-item label="字段 Key" :required="true">
-          <el-input v-model="data.fieldKey" type="text" style="width: 200px;" :disabled="forEditing || isVendorIdType">
+          <el-input v-model="data.fieldKey" type="text" style="width: 200px;" :disabled="forEditing">
           </el-input>
         </el-form-item>
         <el-form-item label="字段名称" :required="true">
@@ -47,7 +47,7 @@ import { I18nCode } from '@fangcha/tools'
           <el-input v-model="data.nameI18n[I18nCode.zhHans]" type="text" style="width: 200px;" />
         </el-form-item>
         <el-form-item v-if="!forBind" label="是否必填" :required="true">
-          <el-radio-group v-model="data.required" :disabled="isVendorIdType">
+          <el-radio-group v-model="data.required">
             <el-radio-button :key="1" :label="1">是</el-radio-button>
             <el-radio-button :key="0" :label="0">否</el-radio-button>
           </el-radio-group>
@@ -216,19 +216,11 @@ export default class ModelFieldDialog extends CustomDialog {
 
   @Watch('data.fieldType', { immediate: true })
   onFieldTypeChanged(value: string) {
-    if (value === FieldType.VendorID) {
-      this.data.fieldKey = 'vendor_id'
-      this.data.required = 1
-    }
     this.useNormalField = !checkSpecialField(value as FieldType)
   }
 
   get canBeSearchable() {
     return this.isSingleLineType && !this.forBind
-  }
-
-  get isVendorIdType() {
-    return this.data.fieldType === FieldType.VendorID
   }
 
   get isDateType() {

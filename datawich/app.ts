@@ -14,6 +14,7 @@ import {
   MyFavorSidebar,
   UserGroupListView,
 } from '../app-core'
+import { GeneralDataManager } from '../src'
 
 OssFrontendService.init({
   defaultBucketName: 'fc-web-oss',
@@ -29,6 +30,27 @@ const app = new AdminApp({
     appHeader: {
       background: '#DD73A4',
     },
+  },
+  appWillLoad: () => {
+    GeneralDataManager.useAttachmentFieldPlugin({
+      bucketName: 'fc-web-oss',
+      ossZone: 'datawich',
+    })
+  },
+  appDidLoad: async () => {
+    MyFavorSidebar.reloadFavorApps()
+  },
+  reloadUserInfo: async (): Promise<VisitorInfo> => {
+    const request = MyAxios(KitProfileApis.BasicProfileGet)
+    const response = await request.quickSend<{ email: string }>()
+    return {
+      iamId: 0,
+      email: response.email,
+      name: response.email.split('@')[0],
+      permissionKeyMap: {},
+      isAdmin: true,
+      locale: I18nCode.en,
+    }
   },
   sidebarNodes: [
     {
@@ -112,21 +134,6 @@ const app = new AdminApp({
       name: 'LogicExpressionView',
     },
   ],
-  appDidLoad: async () => {
-    MyFavorSidebar.reloadFavorApps()
-  },
-  reloadUserInfo: async (): Promise<VisitorInfo> => {
-    const request = MyAxios(KitProfileApis.BasicProfileGet)
-    const response = await request.quickSend<{ email: string }>()
-    return {
-      iamId: 0,
-      email: response.email,
-      name: response.email,
-      permissionKeyMap: {},
-      isAdmin: true,
-      locale: I18nCode.en,
-    }
-  },
 })
 window._datawichApp = app
 app.launch()

@@ -12,9 +12,11 @@ import { getRouterToDataApp } from '../../src'
           effect="dark"
           placement="top"
         >
-          <div slot="content">
-            <span style="font-size: 130%;">维护者: {{ data.author }}</span>
-          </div>
+          <ul slot="content">
+            <li>{{ data.accessLevel | describe_model_access_level_detail }}</li>
+            <li>modelKey: {{ data.modelKey }}</li>
+            <li>维护者: {{ data.author }}</li>
+          </ul>
           <span class="el-icon-question" />
         </el-tooltip>
       </el-button>

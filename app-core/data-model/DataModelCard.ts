@@ -1,11 +1,11 @@
 import { Component, Prop, ViewController } from '@fangcha/vue'
-import { DataModelModel } from '@fangcha/datawich-service/lib/common/models'
+import { AccessLevel, DataModelModel } from '@fangcha/datawich-service/lib/common/models'
 import { getRouterToDataApp, getRouterToModel } from '../../src'
 
 @Component({
   template: `
     <div class="fc-card" style="width: 300px; ">
-      <h5 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      <h5 class="fc-single-line">
         {{ data.name }}
         <el-tooltip
           class="item"
@@ -13,13 +13,13 @@ import { getRouterToDataApp, getRouterToModel } from '../../src'
           placement="top"
         >
           <ul slot="content">
-            <li>{{ data.modelKey }}</li>
+            <li>modelKey: {{ data.modelKey }}</li>
             <li>维护者: {{ data.author }}</li>
           </ul>
           <small class="el-icon-question" />
         </el-tooltip>
       </h5>
-      <ul class="mb-0">
+      <ul class="fc-clean-ul">
         <li>
           <span v-if="data.isOnline" style="color: #67C23A">已发布 <i class="el-icon-success"/></span>
           <span v-if="!data.isOnline" style="color: #F56C6C">未发布 <i class="el-icon-error"/></span>
@@ -30,12 +30,25 @@ import { getRouterToDataApp, getRouterToModel } from '../../src'
           </el-tag>
         </li>
         <li>
-          记录数:
+          <el-tooltip
+            class="item"
+            effect="dark"
+            placement="top"
+          >
+            <div slot="content">
+              {{ data.accessLevel | describe_model_access_level_detail }}
+            </div>
+            <span>
+              {{ data.accessLevel | describe_model_access_level }}
+              <i class="el-icon-question" />
+            </span>
+          </el-tooltip>
+          |
           <template v-if="count === null">
             加载中……
           </template>
           <b v-else>
-            {{ count }}
+            {{ count }} 条记录
           </b>
         </li>
         <li>
@@ -50,6 +63,8 @@ import { getRouterToDataApp, getRouterToModel } from '../../src'
 export class DataModelCard extends ViewController {
   @Prop({ default: null, type: Object }) readonly data!: DataModelModel
   @Prop({ default: null, type: Number }) readonly count!: number | null
+
+  AccessLevel = AccessLevel
 
   get routeToDataApp() {
     return getRouterToDataApp(this.data)

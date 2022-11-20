@@ -77,19 +77,6 @@ import { MultiEnumContainer } from './MultiEnumContainer'
               </el-tooltip>
             </template>
           </el-table-column>
-          <el-table-column v-else-if="field.fieldType === FieldType.VendorID" :label="field.name" :prop="field.fieldKey">
-            <template slot-scope="scope">
-              {{ scope.row._company_name }}<br />
-              {{ scope.row._project_name }}<br />
-              vid: {{ scope.row.vendor_id }}
-              <el-tooltip v-if="!checkCellValid(scope.row, 'vendor_id')" class="item" effect="dark" placement="top">
-                <span class="question_icon el-icon-question" />
-                <div slot="content">
-                  {{ scope.row.invalidMap['vendor_id'] }}
-                </div>
-              </el-tooltip>
-            </template>
-          </el-table-column>
           <el-table-column v-else :label="field.name" :prop="field.fieldKey">
             <template slot-scope="scope">
               {{ scope.row[field.fieldKey] }}

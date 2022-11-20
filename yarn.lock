@@ -978,10 +978,10 @@
   resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.45.0.tgz#0b0ec9b1ad537d706fdc114df45c21c0bdf079ba"
   integrity sha512-EzEZ44BKt8RZo1IJJaCNeKEQDReuTXm4rY30dbRiURj0voRp+FB37l6I7+N4gZQ9HQKVpmfLx3P/VXoLeDXIJA==
 
-"@fangcha/datawich-service@^0.24.2":
-  version "0.24.2"
-  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.24.2.tgz#009e5f9e5cabc0f2a98cf5ed47ea30c886caac4b"
-  integrity sha512-X3RqXguieBD+59zNu+G9BdsYPKrDM33MN97kwmIxcOUEk7HYEG9epVZ8SvK88UFqftjaUnLZW9c4DFCLzQyZ8Q==
+"@fangcha/datawich-service@^0.26.0":
+  version "0.26.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.26.0.tgz#021be9b352cd900c46dd334db9c6798d7070ac47"
+  integrity sha512-JFJ3C1i2BbabR7SQb8hXKLT98y4jOPhHzwnUUaIE3PBaZO2yCfSYcTTnBsAg2zag939k2xxTtRIkC187w6c8jg==
 
 "@fangcha/eslint@^0.3.2":
   version "0.3.2"
@@ -1019,10 +1019,10 @@
     lodash "^4.17.15"
     tslib "^2.3.1"
 
-"@fangcha/oss-service@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.6.0.tgz#24c860f51591ccb0188e41c8c02c9c848c39da25"
-  integrity sha512-nlZ1814TIiw89qLHPd7ZhuvxlHuaiKq494oxDCxXQNtYsLkH9DC5azsFJwUFUX5dWlTndrn3wGs4p31pMLZ00g==
+"@fangcha/oss-service@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.7.0.tgz#f485b44169f2f8c9d7300094c869e96e3feaa122"
+  integrity sha512-irhD0cTsaAZlgxNts0COdnkaX+8QwgtHvYMd1GMAlP7SSHSZM3MME6xYhz7okpwRh5PT98kVWwfSju1AqLn0iw==
 
 "@fangcha/tools@^1.22.0":
   version "1.22.0"
@@ -1033,10 +1033,10 @@
     tslib "^2.3.1"
     uuid "^3.3.3"
 
-"@fangcha/vue@^0.59.1":
-  version "0.59.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.59.1.tgz#a58bfe0256f49187ff85319cc73d9da47712aff4"
-  integrity sha512-HAiTu4qZ2cUx+L6nbqVyYYm9XBKU1IlX1dQBj0CCkLmzRts7iTc1ggEIuXeWJ1UCd5YLFm1f6SO/BB4qHNKb/g==
+"@fangcha/vue@^0.61.0":
+  version "0.61.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.61.0.tgz#2580d7f3a91a10bcf1cc67ae8a5017a4cc8f0800"
+  integrity sha512-vDpDJBMBUjA1YsGsgipf25wDXRFX64jvYh5GtzLyBhEp6U7KXbTLMqUdO4dKuSEnWDU4YaS9vl6bh1/0VeMGQg==
   dependencies:
     "@popperjs/core" "^2.11.5"
     bootstrap "^5.1.3"

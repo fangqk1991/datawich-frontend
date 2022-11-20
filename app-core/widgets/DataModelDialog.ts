@@ -71,12 +71,6 @@ import {
           </div>
         </el-tooltip>
       </el-form-item>
-      <el-form-item v-if="false" label="数据分析？" :required="false">
-        <el-radio-group v-model="data.star">
-          <el-radio-button :key="1" :label="1">是</el-radio-button>
-          <el-radio-button :key="0" :label="0">否</el-radio-button>
-        </el-radio-group>
-      </el-form-item>
     </el-form>
     </typical-dialog-view>
   `,

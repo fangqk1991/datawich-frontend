@@ -65,12 +65,6 @@ import { DatawichEventKeys, getRouterToModel, LogicExpressionDialog } from '../.
       <el-table-column prop="name" label="字段名称">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
-          <el-tooltip v-if="scope.row.star" class="item" effect="dark" placement="bottom">
-            <span class="el-icon-star-on theme-color" />
-            <div slot="content">
-              该字段被用于数据分析
-            </div>
-          </el-tooltip>
         </template>
       </el-table-column>
       <el-table-column prop="fieldType" label="字段类型" min-width="140px">

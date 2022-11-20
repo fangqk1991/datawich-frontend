@@ -83,11 +83,6 @@ import { DataModelDialog } from '../widgets/DataModelDialog'
             点击查看
           </router-link>
         </el-form-item>
-        <el-form-item class="card-form-item" label="数据分析">
-          <span v-if="dataModel.star" style="color: #67C23A">已开通 <i class="el-icon-success"/></span>
-          <span v-if="!dataModel.star" style="color: #F56C6C">未开通 <i class="el-icon-error"/></span>
-          <span v-if="!dataModel.star" style="margin-left: 5px">如果需要同步数据到数仓请联系 wuxia 或 zhoumiao 开通</span>
-        </el-form-item>
       </el-form>
       <div v-if="outerModels.length > 0" class="mt-4" style="line-height: 2">
         <h5>以下模型在引用本模型</h5>

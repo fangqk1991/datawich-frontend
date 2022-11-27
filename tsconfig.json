@@ -26,7 +26,6 @@
   },
   "include": [
     "./src",
-    "./app-core",
     "./datawich"
   ],
   "exclude": ["node_modules"]

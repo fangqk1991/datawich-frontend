@@ -2,17 +2,9 @@ import { AdminApp } from '@fangcha/vue/app-admin'
 import { OssFrontendService } from '@fangcha/vue/oss-service'
 import { I18nCode, VisitorInfo } from '@fangcha/tools'
 import '@fangcha/vue/fangcha/fc-styles.scss'
-import DataDisplayView from './views/data-app/DataDisplayView'
 import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
-import {
-  DataAppListView,
-  DataModelListView,
-  DataModelManageView,
-  ModelClientListView,
-  MyFavorSidebar,
-  UserGroupListView,
-} from '../app-core'
+
 import { GeneralDataManager } from '../src'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 
@@ -24,7 +16,6 @@ OssFrontendService.init({
 const app = new AdminApp({
   appName: 'Datawich 🍰',
   useRemoteLocale: false,
-  homeView: DataAppListView,
   plugins: [OssFrontendService],
   style: {
     appHeader: {
@@ -36,9 +27,6 @@ const app = new AdminApp({
       bucketName: 'fc-web-oss',
       ossZone: 'datawich',
     })
-  },
-  appDidLoad: async () => {
-    MyFavorSidebar.reloadFavorApps()
   },
   reloadUserInfo: async (): Promise<VisitorInfo> => {
     const request = MyAxios(RetainedSessionApis.UserInfoGet)
@@ -97,37 +85,6 @@ const app = new AdminApp({
     // },
   ],
   routes: [
-    {
-      path: '/v2/data-app',
-      component: DataAppListView,
-      name: 'DataAppListView',
-    },
-    {
-      path: '/v2/data-app/:modelKey',
-      component: DataDisplayView,
-      name: 'DataDisplayView',
-      props: true,
-    },
-    {
-      path: '/v2/data-model',
-      component: DataModelListView,
-      name: 'DataModelListView',
-    },
-    {
-      path: '/v2/data-model/:modelKey',
-      component: DataModelManageView,
-      name: 'DataModelManageView',
-    },
-    {
-      path: '/v1/user-group',
-      component: UserGroupListView,
-      name: 'UserGroupListView',
-    },
-    {
-      path: '/v1/model-client',
-      component: ModelClientListView,
-      name: 'ModelClientListView',
-    },
     {
       path: '/v0/component/logic-expression',
       component: LogicExpressionView,

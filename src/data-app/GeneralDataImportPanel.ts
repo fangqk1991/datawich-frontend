@@ -135,9 +135,8 @@ export class GeneralDataImportPanel extends ViewController {
             ++failCount
           }
         }
-        const request = MyAxios(new CommonAPI(DataAppApis.DataAppRecordsImportedCallback, this.dataModel.modelKey), {
-          mute: true,
-        })
+        const request = MyAxios(new CommonAPI(DataAppApis.DataAppRecordsImportedCallback, this.dataModel.modelKey))
+        request.setMute(true)
         request.setBodyData({ succCount: succCount, failCount: failCount })
         request.execute().catch(() => {})
         this.$emit('on-tasks-done')

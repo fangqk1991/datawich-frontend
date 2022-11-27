@@ -21,7 +21,7 @@
     "lib": ["dom", "es2015"],
     "module": "esnext",
     "outDir": "lib",
-    "target": "es5",
+    "target": "es6",
     "sourceMap": true
   },
   "include": [

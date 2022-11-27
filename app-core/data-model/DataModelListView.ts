@@ -171,9 +171,8 @@ export class DataModelListView extends ViewController implements FragmentProtoco
       taskQueue.addTask(
         new AppTask(async () => {
           this.$set(this.countData, dataModel.modelKey, null)
-          const request = MyAxios(new CommonAPI(DataModelApis.DataModelSummaryInfoGet, dataModel.modelKey), {
-            mute: true,
-          })
+          const request = MyAxios(new CommonAPI(DataModelApis.DataModelSummaryInfoGet, dataModel.modelKey))
+          request.setMute(true)
           await request.quickSend().then(({ count }) => {
             this.$set(this.countData, dataModel.modelKey, count)
           })

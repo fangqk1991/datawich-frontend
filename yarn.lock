@@ -973,15 +973,21 @@
   dependencies:
     "@fangcha/app-error" "^1.1.0"
 
-"@fangcha/backend-kit@^0.45.0":
-  version "0.45.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.45.0.tgz#0b0ec9b1ad537d706fdc114df45c21c0bdf079ba"
-  integrity sha512-EzEZ44BKt8RZo1IJJaCNeKEQDReuTXm4rY30dbRiURj0voRp+FB37l6I7+N4gZQ9HQKVpmfLx3P/VXoLeDXIJA==
+"@fangcha/backend-kit@^0.50.0":
+  version "0.50.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/backend-kit/-/backend-kit-0.50.0.tgz#b36a729f6b2d3bf27d28965bf461a668c239d468"
+  integrity sha512-7eteS3k/3S+OROQhvoThMVyQcROABH6qTzVlMe+mXiYjkarALt3VyFEjdwrU5y0sM5pvcAaoUh6lC+n5/sRliw==
+  dependencies:
+    "@fangcha/app-error" "^1.5.0"
+    "@fangcha/app-request" "^1.6.0"
+    "@fangcha/assert" "^1.1.0"
+    "@fangcha/router" "^0.24.0"
+    "@fangcha/tools" "^1.22.0"
 
-"@fangcha/datawich-service@^0.26.0":
-  version "0.26.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.26.0.tgz#021be9b352cd900c46dd334db9c6798d7070ac47"
-  integrity sha512-JFJ3C1i2BbabR7SQb8hXKLT98y4jOPhHzwnUUaIE3PBaZO2yCfSYcTTnBsAg2zag939k2xxTtRIkC187w6c8jg==
+"@fangcha/datawich-service@^0.26.1":
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/@fangcha/datawich-service/-/datawich-service-0.26.1.tgz#70d6518cd92cd34ef8bdd404d2a592aad0337e8c"
+  integrity sha512-C+iLH1Bl00W96XefUvRphJiw/CteQyCEB0jqHEBpdOhbKhEz5GVw0h96SbN9+5+1R38l4gEs9j6QgEwZLbF6hQ==
 
 "@fangcha/eslint@^0.3.2":
   version "0.3.2"
@@ -1024,6 +1030,20 @@
   resolved "https://registry.yarnpkg.com/@fangcha/oss-service/-/oss-service-0.7.0.tgz#f485b44169f2f8c9d7300094c869e96e3feaa122"
   integrity sha512-irhD0cTsaAZlgxNts0COdnkaX+8QwgtHvYMd1GMAlP7SSHSZM3MME6xYhz7okpwRh5PT98kVWwfSju1AqLn0iw==
 
+"@fangcha/router@^0.24.0":
+  version "0.24.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/router/-/router-0.24.0.tgz#584a14fe4f123f0973daedb6fddc09a05270f1da"
+  integrity sha512-L1PcOUh216gLa7KOxwMgpFL8Rrnql1rgDpQkdD2/PM0/IrFwHJVc6Ic9Q6F3RA7/YJ3iHW09n7uw6e0Y8JxkhQ==
+  dependencies:
+    "@fangcha/app-error" "^1.5.0"
+    "@fangcha/swagger" "^0.1.1"
+    "@fangcha/tools" "^1.22.0"
+
+"@fangcha/swagger@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@fangcha/swagger/-/swagger-0.1.1.tgz#18d35ecc106d90eeec6d7d9964ca776d95cbc878"
+  integrity sha512-NOTpGTPvp2aLCD8EJ+cG/oCd17nl3nmsNV9leVSTq8/M+wNXiYbv21ftZSqHP7/pf9tA5gr9JghizkZI2z5Ing==
+
 "@fangcha/tools@^1.22.0":
   version "1.22.0"
   resolved "https://registry.yarnpkg.com/@fangcha/tools/-/tools-1.22.0.tgz#38aff465bed971f2f1c09ea04f7b4b842a44e2d7"
@@ -1033,10 +1053,10 @@
     tslib "^2.3.1"
     uuid "^3.3.3"
 
-"@fangcha/vue@^0.61.0":
-  version "0.61.0"
-  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.61.0.tgz#2580d7f3a91a10bcf1cc67ae8a5017a4cc8f0800"
-  integrity sha512-vDpDJBMBUjA1YsGsgipf25wDXRFX64jvYh5GtzLyBhEp6U7KXbTLMqUdO4dKuSEnWDU4YaS9vl6bh1/0VeMGQg==
+"@fangcha/vue@^0.68.0":
+  version "0.68.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/vue/-/vue-0.68.0.tgz#dd4ff2c0448d3937e4da543ac65dee46008da74b"
+  integrity sha512-/Rwvs/YyB2JXfLKrg4E1NO9sSLiZP2qVfitYtwyrmYBOTMP0n+InnC432hrkYfXQYiLypYxDCyEsvdx5O7xNsw==
   dependencies:
     "@popperjs/core" "^2.11.5"
     bootstrap "^5.1.3"
@@ -1051,10 +1071,10 @@
     vue-property-decorator "^8.4.0"
     vue-router "^3.1.5"
 
-"@fangcha/webpack@^0.9.1":
-  version "0.9.1"
-  resolved "https://registry.yarnpkg.com/@fangcha/webpack/-/webpack-0.9.1.tgz#106abab6ee4a6ae7a809e9844ca5966b019b94ad"
-  integrity sha512-m3kbCxzVm6MBNuuEwXoInGTYwzIFSfBJUTHoWwr11+SvYlpeEy5vP8zRgZIdh6leBaxhhGanV44d4dohu7fCXg==
+"@fangcha/webpack@^0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@fangcha/webpack/-/webpack-0.10.0.tgz#3bf9b8b548faf170dcf4c130b9c9bd976a176260"
+  integrity sha512-I4sI/rB5Ujoc0L8ZCBg2LFU93f/2YS74Mkww9gWAtlfpPTREaZDW8d8TIGMW9o0ugzs4CFFes+3u3u4z0nxKlA==
   dependencies:
     "@babel/core" "^7.8.4"
     "@babel/plugin-proposal-decorators" "^7.8.3"

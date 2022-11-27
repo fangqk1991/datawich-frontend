@@ -5,7 +5,6 @@ import '@fangcha/vue/fangcha/fc-styles.scss'
 import DataDisplayView from './views/data-app/DataDisplayView'
 import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
-import { KitProfileApis } from '@fangcha/backend-kit/lib/apis'
 import {
   DataAppListView,
   DataModelListView,
@@ -15,6 +14,7 @@ import {
   UserGroupListView,
 } from '../app-core'
 import { GeneralDataManager } from '../src'
+import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 
 OssFrontendService.init({
   defaultBucketName: 'fc-web-oss',
@@ -41,7 +41,7 @@ const app = new AdminApp({
     MyFavorSidebar.reloadFavorApps()
   },
   reloadUserInfo: async (): Promise<VisitorInfo> => {
-    const request = MyAxios(KitProfileApis.BasicProfileGet)
+    const request = MyAxios(RetainedSessionApis.UserInfoGet)
     const response = await request.quickSend<{ email: string }>()
     return {
       iamId: 0,

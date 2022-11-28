@@ -2,10 +2,8 @@ import { AdminApp } from '@fangcha/vue/app-admin'
 import { OssFrontendService } from '@fangcha/vue/oss-service'
 import { I18nCode, VisitorInfo } from '@fangcha/tools'
 import '@fangcha/vue/fangcha/fc-styles.scss'
-import { LogicExpressionView } from './views/components/LogicExpressionView'
 import { MyAxios } from '@fangcha/vue/basic'
 
-import { GeneralDataManager } from '../src'
 import { RetainedSessionApis } from '@fangcha/backend-kit/lib/common/apis'
 
 OssFrontendService.init({
@@ -23,10 +21,10 @@ const app = new AdminApp({
     },
   },
   appWillLoad: () => {
-    GeneralDataManager.useAttachmentFieldPlugin({
-      bucketName: 'fc-web-oss',
-      ossZone: 'datawich',
-    })
+    // GeneralDataManager.useAttachmentFieldPlugin({
+    //   bucketName: 'fc-web-oss',
+    //   ossZone: 'datawich',
+    // })
   },
   reloadUserInfo: async (): Promise<VisitorInfo> => {
     const request = MyAxios(RetainedSessionApis.UserInfoGet)
@@ -84,13 +82,7 @@ const app = new AdminApp({
     //   ],
     // },
   ],
-  routes: [
-    {
-      path: '/v0/component/logic-expression',
-      component: LogicExpressionView,
-      name: 'LogicExpressionView',
-    },
-  ],
+  routes: [],
 })
 window._datawichApp = app
 app.launch()

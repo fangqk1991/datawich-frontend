@@ -13,11 +13,9 @@ import {
 } from '@fangcha/datawich-service/lib/common/models'
 import * as moment from 'moment'
 import { i18n, MyDatetimePicker, Prop, ViewController, Watch } from '@fangcha/vue'
-import { GeneralDataManager } from '../GeneralDataManager'
 import { RichTextEditor } from '@fangcha/vue/rich-text-editor'
 import { I18nCode, SelectOption } from '@fangcha/tools'
-import { FieldPluginCenter } from '../core/FieldPluginCenter'
-import { PluginFormItem } from '../core/PluginFormItem'
+import { FieldPluginCenter, PluginFormItem } from '../core'
 
 const _getCalcDate = (dateDesc: string) => {
   if (dateDesc) {
@@ -304,54 +302,6 @@ export class DataNormalForm extends ViewController {
           const checkedMap = extractMultiEnumCheckedMapForValue(this.myData[field.fieldKey], field.options)
           this.$set(this.multiEnumCheckedMap, field.fieldKey, checkedMap)
         })
-    }
-    if (GeneralDataManager.do) {
-      fields
-        .filter((field) => field.fieldType === FieldType.SingleLineText && field.searchable)
-        .forEach((field) => {
-          this.$set(this.searchFuncMap, field.fieldKey, (keywords: any, callback: any) => {
-            GeneralDataManager.do.searchDataAppFieldInfos(this.modelKey, field.fieldKey, keywords).then((options) => {
-              const datas = options.map((option) => {
-                return {
-                  fieldKey: field.fieldKey,
-                  entity: option.value,
-                  value: option.label,
-                }
-              })
-              callback(datas)
-            })
-          })
-        })
-      GeneralDataManager.do.getDataModelFieldLinkList(this.modelKey).then((links) => {
-        links.forEach((link) => {
-          this.$set(this.searchFuncMap, link.fieldKey, (keywords: any, callback: any) => {
-            GeneralDataManager.do.searchDataAppFieldLinkInfos(this.modelKey, link.linkId, keywords).then((options) => {
-              const datas = options.map((option) => {
-                return {
-                  fieldKey: link.fieldKey,
-                  entity: option.value,
-                  value: option.label,
-                }
-              })
-              callback(datas)
-            })
-          })
-          const searchItem = {
-            options: [] as SelectOption[],
-            func: async (keywords: any) => {
-              searchItem.options = await GeneralDataManager.do.searchDataAppFieldLinkInfos(
-                this.modelKey,
-                link.linkId,
-                keywords
-              )
-            },
-          }
-          this.$set(this.searchItemMap, link.fieldKey, searchItem)
-          GeneralDataManager.do.searchDataAppFieldLinkInfos(this.modelKey, link.linkId, '').then((options) => {
-            searchItem.options = options
-          })
-        })
-      })
     }
     FieldPluginCenter.onFormDataChanged(this, this.myData, fields)
   }

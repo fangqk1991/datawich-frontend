@@ -4,9 +4,9 @@ import { FrontendPluginProtocol, MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { NotificationCenter } from 'notification-center-js'
 import { SdkDatawichApis2 } from '@fangcha/datawich-service/lib/common/sdk-api'
-import { GeneralDataManager } from './GeneralDataManager'
-import { AttachmentOptions } from './plugins/attachment/AttachmentOptions'
+import { _DatawichAttachmentOptions, AttachmentOptions } from './plugins/attachment/AttachmentOptions'
 import { FieldPluginCenter, FieldPluginProtocol } from './core'
+import { AttachmentFieldPlugin } from './plugins/attachment/AttachmentFieldPlugin'
 
 Vue.filter('describe_tiny_model_summary', function (val: TinyModelInfo) {
   return `${val.name} [${val.modelKey}]`
@@ -37,7 +37,8 @@ class _DatawichFrontendService implements FrontendPluginProtocol {
 
   public init(params: Params = {}) {
     if (params.attachmentOptions) {
-      GeneralDataManager.useAttachmentFieldPlugin(params.attachmentOptions)
+      Object.assign(_DatawichAttachmentOptions, params.attachmentOptions)
+      FieldPluginCenter.addPlugin(new AttachmentFieldPlugin())
     }
     if (params.plugins) {
       FieldPluginCenter.addPlugin(...params.plugins)

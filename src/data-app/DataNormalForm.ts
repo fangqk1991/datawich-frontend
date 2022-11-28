@@ -1,21 +1,11 @@
 import { Component } from 'vue-property-decorator'
-import {
-  calculateMultiEnumValueWithCheckedMap,
-  calculateValueWithCheckedMap,
-  extractCheckedMapForValue,
-  extractMultiEnumCheckedMapForValue,
-  FieldType,
-  fieldWidgetStyle,
-  GeneralDataChecker,
-  LogicExpression,
-  LogicExpressionHelper,
-  ModelFieldModel,
-} from '@fangcha/datawich-service/lib/common/models'
+import { FieldType, LogicExpression, LogicExpressionHelper, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
 import * as moment from 'moment'
 import { i18n, MyDatetimePicker, Prop, ViewController, Watch } from '@fangcha/vue'
 import { RichTextEditor } from '@fangcha/vue/rich-text-editor'
 import { I18nCode, SelectOption } from '@fangcha/tools'
 import { FieldPluginCenter, PluginFormItem } from '../core'
+import { GeneralDataChecker, GeneralDataHelper } from '@fangcha/datawich-service/lib/common/tools'
 
 const _getCalcDate = (dateDesc: string) => {
   if (dateDesc) {
@@ -129,7 +119,6 @@ const _getCalcDate = (dateDesc: string) => {
             v-else
             v-model="myData[field.fieldKey]"
             type="number"
-            :style="fieldWidgetStyle(field)"
             :disabled="!checkFieldEditable(field)"
           >
           </el-input>
@@ -196,7 +185,6 @@ export class DataNormalForm extends ViewController {
   @Prop({ default: false, type: Boolean }) readonly readonly!: boolean
   @Prop({ default: false, type: Boolean }) readonly forceEditing!: boolean
 
-  fieldWidgetStyle = fieldWidgetStyle
   FieldType = FieldType
   pickerOptionsMap: any = {}
 
@@ -293,13 +281,16 @@ export class DataNormalForm extends ViewController {
       fields
         .filter((field) => field.fieldType === FieldType.Tags)
         .forEach((field) => {
-          const checkedMap = extractCheckedMapForValue(this.myData[field.fieldKey], field)
+          const checkedMap = GeneralDataHelper.extractCheckedMapForValue(this.myData[field.fieldKey], field)
           this.$set(this.tagsCheckedMap, field.fieldKey, checkedMap)
         })
       fields
         .filter((field) => field.fieldType === FieldType.MultiEnum)
         .forEach((field) => {
-          const checkedMap = extractMultiEnumCheckedMapForValue(this.myData[field.fieldKey], field.options)
+          const checkedMap = GeneralDataHelper.extractMultiEnumCheckedMapForValue(
+            this.myData[field.fieldKey],
+            field.options
+          )
           this.$set(this.multiEnumCheckedMap, field.fieldKey, checkedMap)
         })
     }
@@ -349,13 +340,13 @@ export class DataNormalForm extends ViewController {
       .filter((field) => field.fieldType === FieldType.Tags)
       .forEach((field) => {
         const checkedMap = this.tagsCheckedMap[field.fieldKey]
-        result[field.fieldKey] = calculateValueWithCheckedMap(checkedMap)
+        result[field.fieldKey] = GeneralDataHelper.calculateValueWithCheckedMap(checkedMap)
       })
     this.allFields
       .filter((field) => field.fieldType === FieldType.MultiEnum)
       .forEach((field) => {
         const checkedMap = this.multiEnumCheckedMap[field.fieldKey]
-        result[field.fieldKey] = calculateMultiEnumValueWithCheckedMap(checkedMap)
+        result[field.fieldKey] = GeneralDataHelper.calculateMultiEnumValueWithCheckedMap(checkedMap)
       })
     this.allFields
       .filter((field) => field.fieldType === FieldType.Integer)

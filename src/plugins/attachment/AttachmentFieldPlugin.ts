@@ -1,8 +1,9 @@
-import { attachmentEntityKey, FieldType, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
+import { FieldType, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
 import Vue from 'vue'
 import { AttachmentDataColumn } from './AttachmentDataColumn'
 import { AttachmentFormItem } from './AttachmentFormItem'
 import { FieldPluginProtocol } from '../../core'
+import { GeneralDataHelper } from '@fangcha/datawich-service/lib/common/tools'
 
 export class AttachmentFieldPlugin implements FieldPluginProtocol {
   fieldType = FieldType.Attachment
@@ -11,9 +12,9 @@ export class AttachmentFieldPlugin implements FieldPluginProtocol {
 
   public onFormDataChanged(vue: Vue, data: any, field: ModelFieldModel) {
     if (data[field.fieldKey]) {
-      vue.$set(data, attachmentEntityKey(field), JSON.parse(data[field.fieldKey]))
+      vue.$set(data, GeneralDataHelper.attachmentEntityKey(field), JSON.parse(data[field.fieldKey]))
     } else {
-      vue.$set(data, attachmentEntityKey(field), null)
+      vue.$set(data, GeneralDataHelper.attachmentEntityKey(field), null)
     }
   }
 }

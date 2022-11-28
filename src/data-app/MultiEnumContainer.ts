@@ -1,6 +1,6 @@
 import { Component, Prop, ViewController } from '@fangcha/vue'
 import { SelectOption } from '@fangcha/tools'
-import { extractMultiEnumCheckedMapForValue } from '@fangcha/datawich-service/lib/common/models'
+import { GeneralDataHelper } from '@fangcha/datawich-service/lib/common/tools'
 
 @Component({
   template: `
@@ -16,7 +16,7 @@ export class MultiEnumContainer extends ViewController {
   @Prop({ default: '', type: String }) readonly value!: string
 
   get pickedOptions() {
-    const checkedMap = extractMultiEnumCheckedMapForValue(this.value, this.options)
+    const checkedMap = GeneralDataHelper.extractMultiEnumCheckedMapForValue(this.value, this.options)
     return this.options.filter((option) => checkedMap[option.value])
   }
 }

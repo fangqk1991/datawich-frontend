@@ -1,9 +1,9 @@
 import { Component } from 'vue-property-decorator'
-import { attachmentEntityKey } from '@fangcha/datawich-service/lib/common/models'
 import { OssUploadDialog } from '@fangcha/vue/oss-service/index'
 import { OssFileInfo, OSSResourceModel } from '@fangcha/oss-service/lib/common/models'
 import { FieldFormItemBase } from '../../core'
 import { _DatawichAttachmentOptions } from './AttachmentOptions'
+import { GeneralDataHelper } from '@fangcha/datawich-service/lib/common/tools'
 
 @Component({
   template: `
@@ -25,7 +25,7 @@ import { _DatawichAttachmentOptions } from './AttachmentOptions'
 export class AttachmentFormItem extends FieldFormItemBase {
   // TODO: Fill url
   get attachmentEntity() {
-    return this.myData[attachmentEntityKey(this.field)] as OssFileInfo
+    return this.myData[GeneralDataHelper.attachmentEntityKey(this.field)] as OssFileInfo
   }
 
   uploadAttachment() {
@@ -40,7 +40,7 @@ export class AttachmentFormItem extends FieldFormItemBase {
         size: resource.size,
       }
       this.myData[field.fieldKey] = JSON.stringify(fileInfo)
-      this.myData[attachmentEntityKey(field)] = {
+      this.myData[GeneralDataHelper.attachmentEntityKey(field)] = {
         ...fileInfo,
         url: resource.url,
       }
@@ -50,6 +50,6 @@ export class AttachmentFormItem extends FieldFormItemBase {
   removeAttachment() {
     const field = this.field
     this.myData[field.fieldKey] = ''
-    this.myData[attachmentEntityKey(field)] = null
+    this.myData[GeneralDataHelper.attachmentEntityKey(field)] = null
   }
 }

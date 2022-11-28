@@ -1,5 +1,6 @@
 import { Component, Prop, ViewController } from '@fangcha/vue'
-import { calculateDataKey, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
+import { ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
+import { GeneralDataHelper } from '@fangcha/datawich-service/lib/common/tools'
 
 @Component
 export class DataColumnBase extends ViewController {
@@ -18,6 +19,6 @@ export class DataColumnBase extends ViewController {
   }
 
   get dataKey() {
-    return calculateDataKey(this.field, this.superField)
+    return GeneralDataHelper.calculateDataKey(this.field, this.superField)
   }
 }

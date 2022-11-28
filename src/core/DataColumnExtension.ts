@@ -1,12 +1,7 @@
 import { Component, InfoCell, InformationDialog, Prop, ViewController } from '@fangcha/vue'
-import {
-  ActionEvent,
-  calculateDataKey,
-  FieldActionModel,
-  FieldLinkModel,
-  ModelFieldModel,
-} from '@fangcha/datawich-service/lib/common/models'
+import { FieldActionModel, FieldLinkModel, ModelFieldModel, } from '@fangcha/datawich-service/lib/common/models'
 import { TemplateHelper } from '@fangcha/tools'
+import { GeneralDataHelper } from '@fangcha/datawich-service/lib/common/tools'
 
 @Component({
   template: `
@@ -34,7 +29,7 @@ export class DataColumnExtension extends ViewController {
 
   viewDidLoad() {
     const actions = this.field.actions as FieldActionModel[]
-    this.linkActions = actions.filter((action) => action.event === ActionEvent.Link)
+    this.linkActions = actions.filter((action) => action.event === 'Link')
     const refFieldLinks = this.field.refFieldLinks || []
     this.outerLinks = refFieldLinks.filter((link) => !link.isInline)
   }
@@ -45,7 +40,7 @@ export class DataColumnExtension extends ViewController {
 
   async showReferenceInfos(link: FieldLinkModel) {
     const infos: InfoCell[] = link.referenceFields.map((field) => {
-      const dataKey = calculateDataKey(field, this.field)
+      const dataKey = GeneralDataHelper.calculateDataKey(field, this.field)
       return {
         label: field.name,
         value: this.data[dataKey],

@@ -2,7 +2,6 @@ import { Component } from 'vue-property-decorator'
 import { i18n, Prop, ViewController } from '@fangcha/vue'
 import {
   FieldType,
-  GeneralDataFormatter,
   ModelFieldModel,
   ModelFullMetadata,
 } from '@fangcha/datawich-service/lib/common/models'
@@ -11,6 +10,7 @@ import { MyAxios } from '@fangcha/vue/basic'
 import { SdkDatawichApis2 } from '@fangcha/datawich-service/lib/common/sdk-api'
 import { OssFileInfo } from '@fangcha/oss-service/lib/common/models'
 import { I18nCode } from '@fangcha/tools'
+import { GeneralDataFormatter } from '@fangcha/datawich-service/lib/common/tools'
 
 @Component({
   components: {

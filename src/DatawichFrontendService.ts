@@ -1,12 +1,11 @@
 import Vue from 'vue'
-import { ActionEventDescriptor, DatawichSystemInfo, TinyModelInfo } from '@fangcha/datawich-service/lib/common/models'
 import { FrontendPluginProtocol, MyAxios } from '@fangcha/vue/basic'
 import { CommonAPI } from '@fangcha/app-request'
 import { NotificationCenter } from 'notification-center-js'
 import { SdkDatawichApis2 } from '@fangcha/datawich-service/lib/common/sdk-api'
-import { _DatawichAttachmentOptions, AttachmentOptions } from './plugins/attachment/AttachmentOptions'
+import { _DatawichAttachmentOptions, AttachmentFieldPlugin, AttachmentOptions } from './plugins/attachment'
 import { FieldPluginCenter, FieldPluginProtocol } from './core'
-import { AttachmentFieldPlugin } from './plugins/attachment/AttachmentFieldPlugin'
+import { DatawichSystemInfo, TinyModelInfo } from '@fangcha/datawich-service/lib/common/models'
 
 Vue.filter('describe_tiny_model_summary', function (val: TinyModelInfo) {
   return `${val.name} [${val.modelKey}]`
@@ -14,10 +13,6 @@ Vue.filter('describe_tiny_model_summary', function (val: TinyModelInfo) {
 
 Vue.filter('build_model_page_url', function (modelKey: string) {
   return CommonAPI.buildUrl(DatawichFrontendService.systemInfo.modelStructureBaseURL, modelKey)
-})
-
-Vue.filter('describe_action_event', function (val: any) {
-  return ActionEventDescriptor.describe(val)
 })
 
 interface Params {

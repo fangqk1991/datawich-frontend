@@ -1,7 +1,7 @@
 import { Component } from '@fangcha/vue'
-import { attachmentEntityKey } from '@fangcha/datawich-service/lib/common/models'
 import { OssFileInfo } from '@fangcha/oss-service/lib/common/models'
 import { DataColumnBase, DataColumnExtension } from '../../core'
+import { GeneralDataHelper } from '@fangcha/datawich-service/lib/common/tools'
 
 @Component({
   components: {
@@ -24,6 +24,6 @@ import { DataColumnBase, DataColumnExtension } from '../../core'
 })
 export class AttachmentDataColumn extends DataColumnBase {
   attachmentEntity(data: any) {
-    return data[attachmentEntityKey(this.field)] as OssFileInfo
+    return data[GeneralDataHelper.attachmentEntityKey(this.field)] as OssFileInfo
   }
 }

@@ -1,6 +1,7 @@
 import { Component } from 'vue-property-decorator'
 import { Prop, ViewController } from '@fangcha/vue'
-import { GeneralDataFormatter, ModelFullMetadata } from '@fangcha/datawich-service/lib/common/models'
+import { ModelFullMetadata } from '@fangcha/datawich-service/lib/common/models'
+import { GeneralDataFormatter } from '@fangcha/datawich-service/lib/common/tools'
 
 @Component({
   template: `

@@ -1,7 +1,7 @@
 import { Component } from 'vue-property-decorator'
 import { FieldType, LogicExpression, LogicExpressionHelper, ModelFieldModel } from '@fangcha/datawich-service/lib/common/models'
 import * as moment from 'moment'
-import { i18n, MyDatetimePicker, Prop, ViewController, Watch } from '@fangcha/vue'
+import { i18n, MyDatetimePicker, Prop, ViewController, Watch, StringListPanel } from '@fangcha/vue'
 import { RichTextEditor } from '@fangcha/vue/rich-text-editor'
 import { I18nCode, SelectOption } from '@fangcha/tools'
 import { FieldPluginCenter, PluginFormItem } from '../core'
@@ -30,6 +30,7 @@ const _getCalcDate = (dateDesc: string) => {
     'rich-text-editor': RichTextEditor,
     'my-datetime-picker': MyDatetimePicker,
     'plugin-form-item': PluginFormItem,
+    'string-list-panel': StringListPanel,
   },
   template: `
     <el-form label-width="160px" @submit.native.prevent="onEnter">
@@ -86,6 +87,9 @@ const _getCalcDate = (dateDesc: string) => {
           >
             {{ item.label }}
           </el-checkbox>
+        </div>
+        <div v-if="field.fieldType === FieldType.StringList">
+          <string-list-panel v-model="myData[field.fieldKey]" />
         </div>
         <template v-if="checkFieldTextWidget(field)">
           <el-autocomplete

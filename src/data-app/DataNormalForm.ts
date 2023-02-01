@@ -124,7 +124,7 @@ const _getCalcDate = (dateDesc: string) => {
           </el-input>
         </template>
         <el-input
-          v-if="field.fieldType === FieldType.MultipleLinesText"
+          v-if="field.fieldType === FieldType.MultipleLinesText || field.fieldType === FieldType.Link"
           v-model="myData[field.fieldKey]"
           :rows="3"
           type="textarea"

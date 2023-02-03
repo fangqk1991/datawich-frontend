@@ -45,7 +45,7 @@ export class GeneralDataDialog extends TypicalDialog implements DataDialogProtoc
         data[field.dataKey] = field.defaultValue
       }
     }
-    this.myData = data
+    this.myData = JSON.parse(JSON.stringify(data))
   }
 
   onHandleResult() {
